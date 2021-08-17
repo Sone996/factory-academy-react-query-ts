@@ -1,0 +1,109 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// modals
+
+.modal-overlay{
+	z-index: 2;
+    background-color: rgba(0, 0, 0, .6);
+}
+.modal{
+  z-index: 3;
+}
+.course-course-modal {
+  height: 10%;
+}
+
+// END :: modals
+
+// scroll
+
+.scroll-y {
+  overflow: scroll !important;
+  overflow-x: hidden;
+}
+
+.overflow-hidden {
+  overflow: hidden !important;
+}
+div::-webkit-scrollbar {
+  display: none;
+}
+
+// END :: scroll
+
+// notification modal
+
+.notification-modal {
+	right: 2%;
+	bottom: 2%;
+	height: 10%;	
+}
+.goIn{
+	animation: comein 0.5s;
+	animation-iteration-count: 1;
+  	animation-timing-function: linear;
+}
+.goOut{
+	animation: comeout 0.5s;
+	animation-iteration-count: 1;
+  	animation-timing-function: linear;
+}
+@keyframes comein {
+  from {
+	  opacity: 0;
+	  transform: translateX(100%); 
+	  }
+  to {
+	  opacity: 1;
+	  transform: translateX(0);
+	  }
+}
+@keyframes comeout {
+  from {
+	  opacity: 1;
+	  transform: translateX(0);
+	  }
+  to {
+	  opacity: 0;
+	  transform: translateX(100%);
+	  }
+}
+
+// END :: notification modal
