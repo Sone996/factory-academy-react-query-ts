@@ -1,5 +1,4 @@
 import { authRepo } from "./Auth.repo";
-import { sha512 } from 'sha512-crypt-ts';
 import { SHA512 } from "crypto-js";
 import { TOKEN_LS_NAME } from "../../Constants/Constants";
 
@@ -36,6 +35,9 @@ class AuthService {
     // logout() {
     //     return authRepo.logout();
     // }
+    isLogged() {
+        return localStorage.getItem(TOKEN_LS_NAME);
+    }
 }
 
 export const authService = new AuthService();

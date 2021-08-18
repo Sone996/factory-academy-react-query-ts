@@ -1,27 +1,32 @@
-import { useEffect, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import { Route, useHistory } from "react-router-dom";
-import { AuthContext } from "../Modules/AuthModule/Auth.context";
+
+import { AppContext } from "../Context/AppProvider";
 
 import { authService } from "../Modules/AuthModule/Auth.service";
+import { useFetchActiveUser } from "./Router.service";
 
 
-function ProtectedRoute({ component: Component, setUser, ...rest}: any) {
+export const ProtectedRoute: React.FC<any> = ({ component: Component, setUser, ...rest }) => {
     const history = useHistory();
-    const user = useContext(AuthContext);
+    // eslint-disable-next-line
+    const [contextState, dispatch] = useContext(AppContext);
+
+    useFetchActiveUser();
 
     useEffect(() => {
-        if(!authService.fetchActiveAccount()) {
+        if (!authService.isLogged()) {
             history.push('/login');
         }
     }, []);
 
-    useEffect(() => {
-        async function fetch() {
-            try {
-                
-            } catch (error) {
-                
-            }
-        }
-    })
+    if (!contextState.user) {
+        return null;
+    }
+
+    return (
+        <Route {...rest} render={(props) => (
+            <Component {...props} />
+        )} />
+    );
 }

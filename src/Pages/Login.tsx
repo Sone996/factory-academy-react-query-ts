@@ -19,6 +19,7 @@ const registerFormTemplate = {
 
 const Login: React.FC = () => {
 
+    // eslint-disable-next-line
     const [contextState, dispatch] = useContext(AppContext);
 
     const [loginForm, setLoginForm] = useState(loginFormTemlate);

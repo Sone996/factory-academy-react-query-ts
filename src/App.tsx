@@ -1,5 +1,5 @@
 import React from 'react';
-import { QueryClient, QueryClientProvider, useQuery } from 'react-query';
+import { QueryClient, QueryClientProvider } from 'react-query';
 //import { ReactQueryDevtools } from 'react-query/devtools';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 // CONTEXT
@@ -7,6 +7,7 @@ import AppProvider from './Context/AppProvider';
 // END :: CONTEXT
 // CUSTOM SERVICES
 import { state, combineReducers } from './Context/Reducers';
+import { ProtectedRoute } from './Services/ProtectedRoute';
 // END :: CUSTOM SERVICES
 // PAGES
 import Login from './Pages/Login';
@@ -45,8 +46,11 @@ function App() {
               <Route exact path='/login'>
                 <Login />
               </Route>
-              <Route exact path='/teacher-home'>
+              <ProtectedRoute exact path='/teacher-home'>
                 <TeacherHome />
+              </ProtectedRoute>
+              <Route path="*" exact>
+                <Redirect to={{pathname: '/login'}}/>
               </Route>
             </Switch>
           </Router>
