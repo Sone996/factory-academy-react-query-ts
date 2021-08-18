@@ -23,10 +23,10 @@ class AuthService {
         return authRepo.fetchActiveAccount();
     }
 
-    // logout() {
-    //     return authRepo.logout();
-    // }
-    
+    logout() {
+        return authRepo.logout();
+    }
+
     isLogged() {
         return localStorage.getItem(TOKEN_LS_NAME);
     }

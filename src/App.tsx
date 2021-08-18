@@ -1,7 +1,7 @@
 import React from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 //import { ReactQueryDevtools } from 'react-query/devtools';
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Redirect, useLocation } from 'react-router-dom';
 // CONTEXT
 import AppProvider from './Context/AppProvider';
 // END :: CONTEXT
@@ -11,9 +11,10 @@ import { ProtectedRoute } from './Services/ProtectedRoute';
 // END :: CUSTOM SERVICES
 // PAGES
 import Login from './Pages/Login';
-import TeacherHome from './Pages/Teacher/TeacherHome';
+// import TeacherHome from './Pages/Teacher/TeacherHome';
 // END :: PAGES
 // COMPONENTS
+import AppLayoutNavigation from './Components/Shared/AppLayoutNavigation';
 // END :: COMPONENTS
 // REDUCERS
 import { appReducer } from './Context/Reducers/App/App.reducer';
@@ -23,7 +24,6 @@ import './App.scss';
 // END:: STYLE
 
 function App() {
-
 
   const queryCLient = new QueryClient({
     defaultOptions: {
@@ -46,11 +46,11 @@ function App() {
               <Route exact path='/login'>
                 <Login />
               </Route>
-              <ProtectedRoute exact path='/teacher-home'>
-                <TeacherHome />
+              <ProtectedRoute exact path='*'>
+                <AppLayoutNavigation />
               </ProtectedRoute>
               <Route path="*" exact>
-                <Redirect to={{pathname: '/login'}}/>
+                <Redirect to={{ pathname: '/login' }} />
               </Route>
             </Switch>
           </Router>
