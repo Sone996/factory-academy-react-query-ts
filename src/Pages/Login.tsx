@@ -1,7 +1,9 @@
-import React, { useContext } from "react";
-import { useState } from "react";
+import React, { useContext, useState } from "react";
+import { useMutation } from "react-query";
 import { authService } from "../Modules/AuthModule/Auth.service";
 import { useHistory } from "react-router-dom";
+import { AppContext } from "../Context/AppProvider";
+import { ActionTypes } from "../Context/Reducers/App/AppProvider.types";
 
 const loginFormTemlate = {
     email: '',
@@ -15,7 +17,9 @@ const registerFormTemplate = {
     role: '',
 }
 
-const Login: React.FC<{ setUser: any }> = ({ setUser }) => {
+const Login: React.FC = () => {
+
+    const [contextState, dispatch] = useContext(AppContext);
 
     const [loginForm, setLoginForm] = useState(loginFormTemlate);
     const [registerForm, setRegisterForm] = useState(registerFormTemplate);
@@ -27,19 +31,20 @@ const Login: React.FC<{ setUser: any }> = ({ setUser }) => {
     }
 
     const loginSubmit = async () => {
-        authService.login(loginForm)
-          .then(res => {
-              console.log(res)
-            // if (res.data.role === 'teacher') {
-            //   history.push('/teacher-home');
-            // } else {
-            //   history.push('/student-home');
-            // }
-          })
-          .catch(err => {
-            console.log(err)
-          }
-          );
+        loginMutation.mutate(loginForm);
+        // authService.login(loginForm)
+        //   .then(res => {
+        //       console.log(res)
+        //     // if (res.data.role === 'teacher') {
+        //     //   history.push('/teacher-home');
+        //     // } else {
+        //     //   history.push('/student-home');
+        //     // }
+        //   })
+        //   .catch(err => {
+        //     console.log(err)
+        //   }
+        //   );
     }
 
     const loginPostRegister = async () => {
@@ -59,6 +64,7 @@ const Login: React.FC<{ setUser: any }> = ({ setUser }) => {
     }
 
     const registerAction = () => {
+        // loginMutation.mutate()
         // authService.register(registerForm)
         //   .then(res => {
         //     loginForm.email = res.data.email;
@@ -69,6 +75,30 @@ const Login: React.FC<{ setUser: any }> = ({ setUser }) => {
         //     console.log(err.response.data.errors);
         //   })
     };
+
+    const loginMutation = useMutation((val: any) => authService.login(val), {
+        onMutate: () => {
+            dispatch({
+                type: ActionTypes.SET_LOADER,
+                payload: true
+            });
+        },
+        onSuccess: (response: any) => {
+            dispatch({
+                type: ActionTypes.SET_LOADER,
+                payload: false
+            });
+            dispatch({
+                type: ActionTypes.SET_USER,
+                payload: response.data
+            });
+            if(response.data.role === 'teacher') {
+                history.push('/teacher-home');
+            } else {
+                history.push('/teacher-home');
+            }
+        }
+    });
 
     const inputHandler = (event: any) => {
         setLoginForm({

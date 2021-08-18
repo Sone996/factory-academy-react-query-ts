@@ -1,22 +1,28 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { QueryClient, QueryClientProvider, useQuery } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
+//import { ReactQueryDevtools } from 'react-query/devtools';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+// CONTEXT
+import AppProvider from './Context/AppProvider';
+// END :: CONTEXT
 // CUSTOM SERVICES
-import { AuthContext } from './Modules/AuthModule/Auth.context';
+import { state, combineReducers } from './Context/Reducers';
 // END :: CUSTOM SERVICES
 // PAGES
 import Login from './Pages/Login';
+import TeacherHome from './Pages/Teacher/TeacherHome';
 // END :: PAGES
 // COMPONENTS
 // END :: COMPONENTS
+// REDUCERS
+import { appReducer } from './Context/Reducers/App/App.reducer';
+// END :: REDUCERS
 // STYLE
 import './App.scss';
 // END:: STYLE
 
 function App() {
 
-  const [activeUser, setActiveUser] = useState(null);
 
   const queryCLient = new QueryClient({
     defaultOptions: {
@@ -26,20 +32,27 @@ function App() {
     }
   });
 
-  const setUser = (val: any) => {
-    setActiveUser(val.data);
-  }
+  const reducers = combineReducers({
+    appReducer
+  })
 
   return (
-    <div className="relative w-screen h-screen overflow-hidden flex">
-      <AuthContext.Provider value={activeUser}>
-        <Router>
-          <Route exact path='/login'>
-            <Login setUser={setUser} />
-          </Route>
-        </Router>
-      </AuthContext.Provider>
-    </div>
+    <AppProvider reducer={reducers} state={state}>
+      <div className="relative w-screen h-screen overflow-hidden flex">
+        <QueryClientProvider client={queryCLient}>
+          <Router>
+            <Switch>
+              <Route exact path='/login'>
+                <Login />
+              </Route>
+              <Route exact path='/teacher-home'>
+                <TeacherHome />
+              </Route>
+            </Switch>
+          </Router>
+        </QueryClientProvider>
+      </div>
+    </AppProvider>
   );
 }
 
