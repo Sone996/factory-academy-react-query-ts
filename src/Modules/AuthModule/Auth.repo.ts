@@ -11,9 +11,9 @@ class AuthRepo {
         return api.post(ROUTES.LOGIN, data)
     }
 
-    // register(data: any) {
-    //     return api.post(ROUTES.REGISTER, data);
-    // }
+    register(data: any) {
+        return api.post(ROUTES.REGISTER, data);
+    }
 
     fetchActiveAccount() {
         return api.get(ROUTES.FETCH_ACCOUNT);

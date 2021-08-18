@@ -33,48 +33,16 @@ const Login: React.FC = () => {
 
     const loginSubmit = async () => {
         loginMutation.mutate(loginForm);
-        // authService.login(loginForm)
-        //   .then(res => {
-        //       console.log(res)
-        //     // if (res.data.role === 'teacher') {
-        //     //   history.push('/teacher-home');
-        //     // } else {
-        //     //   history.push('/student-home');
-        //     // }
-        //   })
-        //   .catch(err => {
-        //     console.log(err)
-        //   }
-        //   );
-    }
-
-    const loginPostRegister = async () => {
-        // authService.loginAfterRegister(loginForm)
-        //   .then(res => {
-        //     setLoggedUser(res.data);
-        //     if (res.data.role === 'teacher') {
-        //       history.push('/teacher-home');
-        //     } else {
-        //       history.push('/student-home');
-        //     }
-        //   })
-        //   .catch(err => {
-        //     console.log(err.response.data.errors)
-        //   }
-        //   );
     }
 
     const registerAction = () => {
-        // loginMutation.mutate()
-        // authService.register(registerForm)
-        //   .then(res => {
-        //     loginForm.email = res.data.email;
-        //     loginForm.password = res.data.password;
-        //     loginPostRegister();
-        //   })
-        //   .catch(err => {
-        //     console.log(err.response.data.errors);
-        //   })
+        console.log(registerAction);
+        setLoginForm({
+            ...loginForm,
+            email: registerForm.email,
+            password: registerForm.password
+        })
+        registerMutation.mutate(registerForm);
     };
 
     const loginMutation = useMutation((val: any) => authService.login(val), {
@@ -101,9 +69,36 @@ const Login: React.FC = () => {
         }
     });
 
-    const inputHandler = (event: any) => {
+    const registerMutation = useMutation((val: any) => authService.register(val), {
+        onMutate: () => {
+            dispatch({
+                type: ActionTypes.SET_LOADER,
+                payload: true
+            });
+        },
+        onSuccess: (response: any) => {
+            dispatch({
+                type: ActionTypes.SET_LOADER,
+                payload: false
+            });
+            dispatch({
+                type: ActionTypes.SET_USER,
+                payload: response.data
+            });
+            loginMutation.mutate(loginForm);
+        }
+    })
+
+    const inputLoginHandler = (event: any) => {
         setLoginForm({
             ...loginForm,
+            [event.target.name]: event.target.value
+        })
+    }
+
+    const inputRegisterHandler = (event: any) => {
+        setRegisterForm({
+            ...registerForm,
             [event.target.name]: event.target.value
         })
     }
@@ -123,7 +118,7 @@ const Login: React.FC = () => {
                             type="text"
                             name="email"
                             value={loginForm.email}
-                            onChange={inputHandler}
+                            onChange={inputLoginHandler}
                         />
                     </div>
                     <div className="flex flex-col justify-center mt-4">
@@ -133,7 +128,7 @@ const Login: React.FC = () => {
                             type="password"
                             name="password"
                             value={loginForm.password}
-                            onChange={inputHandler}
+                            onChange={inputLoginHandler}
                         />
                     </div>
                     <div className="flex mt-4 justify-between">
@@ -157,7 +152,7 @@ const Login: React.FC = () => {
                             name="name"
                             autoComplete="off"
                             value={registerForm.name}
-                            onChange={inputHandler}
+                            onChange={inputRegisterHandler}
                         />
                     </div>
                     <div className="flex flex-col justify-center mt-8">
@@ -168,7 +163,7 @@ const Login: React.FC = () => {
                             name="surname"
                             autoComplete="off"
                             value={registerForm.surname}
-                            onChange={inputHandler}
+                            onChange={inputRegisterHandler}
                         />
                     </div>
                     <div className="flex flex-col justify-center mt-8">
@@ -179,7 +174,7 @@ const Login: React.FC = () => {
                             name="email"
                             autoComplete="off"
                             value={registerForm.email}
-                            onChange={inputHandler}
+                            onChange={inputRegisterHandler}
                         />
                     </div>
                     <div className="flex flex-col justify-center mt-8">
@@ -190,16 +185,16 @@ const Login: React.FC = () => {
                             name="password"
                             autoComplete="new-password"
                             value={registerForm.password}
-                            onChange={inputHandler}
+                            onChange={inputRegisterHandler}
                         />
                     </div>
                     <div className="flex flex-col mt-2">
                         <div>
-                            <input type="radio" name="student" value="student" onChange={inputHandler} />
+                            <input type="radio" name="role" value="student" onChange={inputRegisterHandler} />
                             <label htmlFor="student">Student</label>
                         </div>
                         <div>
-                            <input type="radio" name="teacher" value="teacher" onChange={inputHandler} />
+                            <input type="radio" name="role" value="teacher" onChange={inputRegisterHandler} />
                             <label htmlFor="teacher">Teacher</label>
                         </div>
                     </div>
