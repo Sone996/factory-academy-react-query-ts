@@ -1,10 +1,11 @@
 import { FC, ReactNode, useReducer, createContext } from "react";
 
 import { IAppState } from "./Reducers/App/AppProvider.types";
+import { ITeacherState } from "./Reducers/Teacher/TeacherProvider.types";
 
 export const AppContext = createContext<any>(null);
 
-interface StateObj extends IAppState { }
+interface StateObj extends IAppState, ITeacherState { }
 
 const AppProvider: FC<{
     reducer: any,

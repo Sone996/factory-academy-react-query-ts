@@ -18,6 +18,7 @@ import AppLayoutNavigation from './Components/Shared/AppLayoutNavigation';
 // END :: COMPONENTS
 // REDUCERS
 import { appReducer } from './Context/Reducers/App/App.reducer';
+import { teacherReducer } from './Context/Reducers/Teacher/Teacher.reducer';
 // END :: REDUCERS
 // STYLE
 import './App.scss';
@@ -34,7 +35,8 @@ function App() {
   });
 
   const reducers = combineReducers({
-    appReducer
+    appReducer,
+    teacherReducer
   })
 
   return (

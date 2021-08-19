@@ -36,7 +36,6 @@ const Login: React.FC = () => {
     }
 
     const registerAction = () => {
-        console.log(registerAction);
         setLoginForm({
             ...loginForm,
             email: registerForm.email,

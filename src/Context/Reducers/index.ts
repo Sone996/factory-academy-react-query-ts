@@ -1,7 +1,9 @@
 import { initState } from "./App/App.reducer";
+import { initTeacherState } from "./Teacher/Teacher.reducer";
 
 const state = {
-    ...initState
+    ...initState,
+    ...initTeacherState
 };
 
 const combineReducers = (reducers: any) => {
