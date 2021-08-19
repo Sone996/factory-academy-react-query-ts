@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const SimpleTable:React.FC<{titles: [], model: any, singleView: any}> = ({ titles, model, singleView }) => {
+const SimpleTable:React.FC<{titles: any, model: any, singleView: any}> = ({ titles, model, singleView }) => {
 
   const [column, setColumn] = useState([]);
 
@@ -32,7 +32,7 @@ const SimpleTable:React.FC<{titles: [], model: any, singleView: any}> = ({ title
               <thead className="bg-gray-50">
                 <tr>
                   {
-                    titles.map((item, index) => (
+                    titles.map((item: string, index: number) => (
                       <th scope="col" key={index} className="px-6 py-3 text-left text-xs text-center font-medium text-gray-500 uppercase tracking-wider">{item}</th>
                     ))
                   }
