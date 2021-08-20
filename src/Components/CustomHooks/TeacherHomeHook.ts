@@ -23,7 +23,6 @@ const TeacherHomeHook = () => {
                 price: myCourses[i].price
             }
         })
-        // return myCourses;
         dispatch({
             type: ActionTypes.SET_MY_COURSES,
             payload: myCourses

@@ -21,8 +21,6 @@ const Loader: FC = () => {
         return null;
     }
 
-    console.log(contextState.loader)
-
     return (
         <div className="modal-overlay fixed top-0 left-0 h-screen w-screen flex justify-center items-center">
             <div className="w-1/4 h-1/4 flex">

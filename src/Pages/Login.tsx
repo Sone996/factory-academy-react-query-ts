@@ -63,7 +63,7 @@ const Login: React.FC = () => {
             if(response.data.role === 'teacher') {
                 history.push('/teacher-home');
             } else {
-                history.push('/teacher-home');
+                history.push('/student-home');
             }
         }
     });

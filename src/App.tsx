@@ -20,6 +20,7 @@ import Loader from './Components/UI/Loader';
 // REDUCERS
 import { appReducer } from './Context/Reducers/App/App.reducer';
 import { teacherReducer } from './Context/Reducers/Teacher/Teacher.reducer';
+import { studentReducer } from './Context/Reducers/Student/Student.reducer';
 // END :: REDUCERS
 // STYLE
 import './App.scss';
@@ -37,7 +38,8 @@ function App() {
 
   const reducers = combineReducers({
     appReducer,
-    teacherReducer
+    teacherReducer,
+    studentReducer
   })
 
   return (

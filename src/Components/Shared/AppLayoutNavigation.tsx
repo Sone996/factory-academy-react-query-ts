@@ -8,6 +8,7 @@ import { AppContext } from "../../Context/AppProvider";
 import { authService } from "../../Modules/AuthModule/Auth.service";
 // PAGES
 import TeacherHome from "../../Pages/Teacher/TeacherHome";
+import StudentHome from "../../Pages/Student/StudentHome";
 // END :: PAGES
 
 const AppLayoutNavigation: React.FC = () => {
@@ -17,12 +18,12 @@ const AppLayoutNavigation: React.FC = () => {
 
     const history: any = useHistory();
 
-    const goHome = () => {}
-    const goProfile = () => {}
-    const myStudents = () => {}
-    const newCourseHandler = () =>{}
-    const CourseListHandler = () => {}
-    const studentAplicationsHandler = () => {}
+    const goHome = () => { }
+    const goProfile = () => { }
+    const myStudents = () => { }
+    const newCourseHandler = () => { }
+    const CourseListHandler = () => { }
+    const studentAplicationsHandler = () => { }
     const logout = () => {
         console.log('logout');
         logoutMutation.mutate();
@@ -60,16 +61,19 @@ const AppLayoutNavigation: React.FC = () => {
             </div >
             <div className="flex w-full">
                 <Switch>
-                    <Route path="/teacher-home" component={TeacherHome} />
-                    {/* <Route path="/student-home" component={StudentHome} />
-                    <Route path="/profile/:id" render={(props) => {
+                    {contextState.user && contextState.user.data?.role === 'teacher' ?
+                        <Route path="/teacher-home" component={TeacherHome} />
+                        :
+                        <Route path="/student-home" component={StudentHome} />
+                    }
+                    {/* <Route path="/profile/:id" render={(props) => {
                         return (<Profile {...profileData} />)
-                    }} />
-                    <Route path="/member-list" component={MemberList} />
-                    <Route path="/new-course" component={NewCourse} />
-                    <Route path="/course-list" component={CourseList} />
-                    <Route path="/single-course/:id" component={SingleCourse} />
-                    <Route path="/student-aplications" component={StudentAplications} /> */}
+                    }} /> */}
+                    {/* <Route path="/member-list" component={MemberList} /> */}
+                    {/* <Route path="/new-course" component={NewCourse} /> */}
+                    {/* <Route path="/course-list" component={CourseList} /> */}
+                    {/* <Route path="/single-course/:id" component={SingleCourse} /> */}
+                    {/* <Route path="/student-aplications" component={StudentAplications} /> */}
                 </Switch>
             </div>
         </div >
