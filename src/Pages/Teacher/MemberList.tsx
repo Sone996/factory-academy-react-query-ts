@@ -13,8 +13,6 @@ const MemberList: React.FC = () => {
 
     MemberListHook();
 
-    console.log(contextState.myStudents)
-
     const singleView = (item: any) => {
         history.push({ pathname: `/profile/${item.user_id}` });
     }
