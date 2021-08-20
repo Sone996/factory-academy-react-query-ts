@@ -4,7 +4,8 @@ export const initState: IAppState = {
     user: null,
     loader: false,
     error: null,
-    success: null
+    success: null,
+    profileData: null
 };
 
 export const appReducer = (initState: IAppState, action: Action): IAppState => {
@@ -28,6 +29,11 @@ export const appReducer = (initState: IAppState, action: Action): IAppState => {
             return {
                 ...initState,
                 error: action.payload
+            }
+        case ActionTypes.SET_PROFILE_DATA:
+            return {
+                ...initState,
+                profileData: action.payload
             }
         default:
             break;

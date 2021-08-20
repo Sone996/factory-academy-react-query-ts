@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { useMutation } from "react-query";
 import { Switch, Route } from "react-router";
 import { useHistory } from "react-router-dom";
@@ -6,26 +6,39 @@ import logo from '../../assets/images/factoryww.png'
 import { TOKEN_LS_NAME } from "../../Constants/Constants";
 import { AppContext } from "../../Context/AppProvider";
 import { authService } from "../../Modules/AuthModule/Auth.service";
+import { personService } from "../../Modules/PersonModule/Person.service";
 // PAGES
 import TeacherHome from "../../Pages/Teacher/TeacherHome";
 import StudentHome from "../../Pages/Student/StudentHome";
+import Profile from "../../Pages/Shared/Profile";
+import { ActionTypes } from "../../Context/Reducers/App/AppProvider.types";
 // END :: PAGES
 
 const AppLayoutNavigation: React.FC = () => {
 
     const [contextState, dispatch] = useContext(AppContext);
 
-
     const history: any = useHistory();
 
     const goHome = () => { }
-    const goProfile = () => { }
+    const goProfile = () => { 
+        personService.goProfile(contextState.user.data.id)
+            .then(res => {
+                dispatch({
+                    type: ActionTypes.SET_PROFILE_DATA,
+                    payload: res.data
+                })
+                history.push({ pathname: `/profile/${res.data.id}` });
+            })
+            .catch(err => {
+                console.log(err.response.data.errors);
+            });
+     }
     const myStudents = () => { }
     const newCourseHandler = () => { }
     const CourseListHandler = () => { }
     const studentAplicationsHandler = () => { }
     const logout = () => {
-        console.log('logout');
         logoutMutation.mutate();
     }
 
@@ -69,6 +82,7 @@ const AppLayoutNavigation: React.FC = () => {
                     {/* <Route path="/profile/:id" render={(props) => {
                         return (<Profile {...profileData} />)
                     }} /> */}
+                    <Route path="/profile/:id" component={Profile} />
                     {/* <Route path="/member-list" component={MemberList} /> */}
                     {/* <Route path="/new-course" component={NewCourse} /> */}
                     {/* <Route path="/course-list" component={CourseList} /> */}

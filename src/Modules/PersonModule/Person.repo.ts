@@ -13,9 +13,9 @@ const ROUTES = {
 };
 
 class PersonRepo {
-    // goProfile(id: number) {
-    //     return api.get(`${ROUTES.USERS}/${id}`);
-    // }
+    goProfile(id: any) {
+        return api.get(`${ROUTES.USERS}/${id}`);
+    }
 
     fetchNotCompletedCourses() {
         const URL = `${ROUTES.STUDENT}${ROUTES.COURSES}`;
