@@ -18,8 +18,6 @@ const StudentHome: React.FC = () => {
 
     StudentHomeHook();
 
-    console.log(contextState)
-
     return (
         <div className="student-home flex-col flex w-full">
             <div className="flex border-b py-4 px-4 w-full text-xl font-bold">

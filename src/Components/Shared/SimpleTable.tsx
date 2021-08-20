@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const SimpleTable:React.FC<{titles: any, model: any, singleView: any}> = ({ titles, model, singleView }) => {
+const SimpleTable:React.FC<{titles: any, model: any, singleView?: any}> = ({ titles, model, singleView }) => {
 
   const [column, setColumn] = useState([]);
 

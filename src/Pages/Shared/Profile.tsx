@@ -3,6 +3,10 @@ import { useHistory } from "react-router-dom";
 import { AppContext } from "../../Context/AppProvider";
 import { ActionTypes } from "../../Context/Reducers/App/AppProvider.types";
 import { personService } from "../../Modules/PersonModule/Person.service";
+// COMPONENTS
+import TeacherProfileComponent from "../../Components/Teacher/TeacherProfileComponent";
+import StudentProfileComponent from "../../Components/Teacher/StudentProfileComponent";
+// END :: COMPONENTS
 
 const Profile: React.FC = () => {
 
@@ -33,7 +37,7 @@ const Profile: React.FC = () => {
                 <span>Role: {stateContext.profileData?.role}</span>
             </div>
             <div className="flex flex-col h-full">
-                {/* {loggedUser.role === 'teacher' ? <TeacherProfileComponent /> : <StudentProfileComponent />} */}
+                {stateContext.user.data.role === 'teacher' ? <TeacherProfileComponent /> : <StudentProfileComponent /> }
             </div>
         </div>
     );
