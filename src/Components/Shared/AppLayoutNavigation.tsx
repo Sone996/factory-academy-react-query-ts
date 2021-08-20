@@ -12,6 +12,7 @@ import TeacherHome from "../../Pages/Teacher/TeacherHome";
 import StudentHome from "../../Pages/Student/StudentHome";
 import Profile from "../../Pages/Shared/Profile";
 import { ActionTypes } from "../../Context/Reducers/App/AppProvider.types";
+import MemberList from "../../Pages/Teacher/MemberList";
 // END :: PAGES
 
 const AppLayoutNavigation: React.FC = () => {
@@ -34,7 +35,9 @@ const AppLayoutNavigation: React.FC = () => {
                 console.log(err.response.data.errors);
             });
      }
-    const myStudents = () => { }
+    const myStudents = () => {
+        history.push('/member-list');
+    }
     const newCourseHandler = () => { }
     const CourseListHandler = () => { }
     const studentAplicationsHandler = () => { }
@@ -59,7 +62,7 @@ const AppLayoutNavigation: React.FC = () => {
                     <span className="my-2 cursor-pointer" onClick={goHome}>Home</span>
                     <span className="my-2 cursor-pointer" onClick={goProfile}>Profile</span>
                     {
-                        contextState.user && contextState.user.role === 'teacher' ?
+                        contextState.user && contextState.user.data.role === 'teacher' ?
                             <>
                                 <span className="my-2 cursor-pointer" onClick={myStudents}>My Students</span>
                                 <span className="my-2 cursor-pointer" onClick={newCourseHandler} > New Course</span >
@@ -79,11 +82,8 @@ const AppLayoutNavigation: React.FC = () => {
                         :
                         <Route path="/student-home" component={StudentHome} />
                     }
-                    {/* <Route path="/profile/:id" render={(props) => {
-                        return (<Profile {...profileData} />)
-                    }} /> */}
                     <Route path="/profile/:id" component={Profile} />
-                    {/* <Route path="/member-list" component={MemberList} /> */}
+                    <Route path="/member-list" component={MemberList} />
                     {/* <Route path="/new-course" component={NewCourse} /> */}
                     {/* <Route path="/course-list" component={CourseList} /> */}
                     {/* <Route path="/single-course/:id" component={SingleCourse} /> */}
