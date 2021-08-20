@@ -15,6 +15,7 @@ import Login from './Pages/Login';
 // END :: PAGES
 // COMPONENTS
 import AppLayoutNavigation from './Components/Shared/AppLayoutNavigation';
+import Loader from './Components/UI/Loader';
 // END :: COMPONENTS
 // REDUCERS
 import { appReducer } from './Context/Reducers/App/App.reducer';
@@ -57,6 +58,7 @@ function App() {
             </Switch>
           </Router>
         </QueryClientProvider>
+        <Loader />
       </div>
     </AppProvider>
   );
