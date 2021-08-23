@@ -4,6 +4,8 @@ export interface ITeacherState {
     myStudents: [],
     activeAplications: [],
     inactiveAplications: [],
+    singleCourse: {},
+    studentsOnCourse: [],
 }
 // END :: STATE
 
@@ -13,6 +15,8 @@ export enum ActionTypes {
     SET_MY_STUDENTS = "SET_MY_STUDENTS",
     SET_ACTIVE_APLICATONS = "SET_ACTIVE_APLICATONS",
     SET_INACTIVE_APLICATONS = "SET_INACTIVE_APLICATONS",
+    SET_SINGLE_COURSE = "SET_SINGLE_COURSE", 
+    SET_STUDENTS_ON_COURSE = "SET_STUDENTS_ON_COURSE",
 }
 // END :: TYPES
 
@@ -21,5 +25,7 @@ export type Action =
     { type: ActionTypes.SET_MY_COURSES, payload: any } |
     { type: ActionTypes.SET_MY_STUDENTS, payload: any } |
     { type: ActionTypes.SET_ACTIVE_APLICATONS, payload: any } |
-    { type: ActionTypes.SET_INACTIVE_APLICATONS, payload: any }
+    { type: ActionTypes.SET_INACTIVE_APLICATONS, payload: any } |
+    { type: ActionTypes.SET_SINGLE_COURSE, payload: any } |
+    { type: ActionTypes.SET_STUDENTS_ON_COURSE, payload: any }
 // END :: ACTIONS

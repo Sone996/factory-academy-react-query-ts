@@ -9,11 +9,10 @@ const TeacherHome: React.FC = () => {
 
   const [contextState, dispatch] = useContext(AppContext);
   const titles = ['Id', 'Name', 'Average Mark', 'Price'];
-  const history = useHistory;
+  const history = useHistory();
 
   const singleView = (item: any) => {
-    console.log(item);
-    //history.push({ pathname: `/single-course/${item.id}` });
+    history.push({ pathname: `/single-course/${item.id}` });
   }
 
   TeacherHomeHook();

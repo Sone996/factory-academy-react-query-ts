@@ -16,6 +16,7 @@ import MemberList from "../../Pages/Teacher/MemberList";
 import NewCourse from "../../Pages/Teacher/NewCourse";
 import CourseList from "../../Pages/Shared/CourseList";
 import StudentAplications from "../../Pages/Teacher/StudentAplications";
+import SingleCourse from "../../Pages/Shared/SIngleCourse";
 // END :: PAGES
 // MODALS
 import FinishingCourseModal from "../Modals/FinishingCourseModal";
@@ -28,7 +29,13 @@ const AppLayoutNavigation: React.FC = () => {
 
     const history: any = useHistory();
 
-    const goHome = () => { }
+    const goHome = () => {
+        if(contextState.user.data?.role === 'teacher') {
+            history.push('/teacher-home');
+        } else {
+            history.push('/student-home');
+        }
+    }
     const goProfile = () => {
         personService.goProfile(contextState.user.data.id)
             .then(res => {
@@ -134,7 +141,7 @@ const AppLayoutNavigation: React.FC = () => {
                     <Route path="/member-list" component={MemberList} />
                     <Route path="/new-course" component={NewCourse} />
                     <Route path="/course-list" component={CourseList} />
-                    {/* <Route path="/single-course/:id" component={SingleCourse} /> */}
+                    <Route path="/single-course/:id" component={SingleCourse} />
                     <Route path="/student-aplications" component={StudentAplications} />
                 </Switch>
             </div>

@@ -15,7 +15,6 @@ export const initState: IAppState = {
 };
 
 export const appReducer = (initState: IAppState, action: Action): IAppState => {
-    console.log(action)
     switch (action.type) {
         case ActionTypes.SET_LOADER:
             return {

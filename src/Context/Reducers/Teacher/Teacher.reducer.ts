@@ -5,6 +5,8 @@ export const initTeacherState: ITeacherState = {
     myStudents: [],
     activeAplications: [],
     inactiveAplications: [],
+    singleCourse: {},
+    studentsOnCourse: [],
 };
 
 export const teacherReducer = (initTeacherState: ITeacherState, action: Action) => {
@@ -28,6 +30,16 @@ export const teacherReducer = (initTeacherState: ITeacherState, action: Action) 
             return {
                 ...initTeacherState,
                 inactiveAplications: action.payload
+            }
+        case ActionTypes.SET_SINGLE_COURSE:
+            return {
+                ...initTeacherState,
+                singleCourse: action.payload
+            }
+        case ActionTypes.SET_STUDENTS_ON_COURSE:
+            return {
+                ...initTeacherState,
+                studentsOnCourse: action.payload
             }
         default:
             break;

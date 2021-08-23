@@ -9,7 +9,7 @@ const TeacherHomeHook = () => {
     const [contextState, dispatch] = useContext(AppContext);
 
     const fetchCourses = async () => {
-        const res = await personService.fetchMyCourses(1);
+        const res = await personService.fetchMyCourses(contextState.user.data.id);
         return res;
     }
 
