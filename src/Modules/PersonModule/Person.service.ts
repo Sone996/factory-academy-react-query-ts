@@ -23,9 +23,9 @@ class PersonService {
         return personRepo.fetchMyStudents();
     }
 
-    // fetchAplicationRequests() {
-    //     return personRepo.fetchAplicationRequests();
-    // }
+    fetchAplicationRequests() {
+        return personRepo.fetchAplicationRequests();
+    }
 
     // resolveRequest(data: any) {
     //     return personRepo.resolveRequest({
