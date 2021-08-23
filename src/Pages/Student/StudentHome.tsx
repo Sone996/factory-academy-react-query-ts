@@ -12,8 +12,7 @@ const StudentHome: React.FC = () => {
     const history = useHistory();
 
     const singleView = (item: any) => {
-        console.log(item);
-        //history.push({ pathname: `/single-course/${item.course_id}` });
+        history.push({ pathname: `/single-course/${item.course_id}` });
     }
 
     StudentHomeHook();

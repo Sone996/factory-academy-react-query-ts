@@ -1,5 +1,5 @@
 import React from 'react'
-import SimpleTable from '../../../Components/Shared/SimpleTable';
+import SimpleTable from '../Shared/SimpleTable';
 
 const SingleCourseComponent = ({ tableData }: any) => {
 

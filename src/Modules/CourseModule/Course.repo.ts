@@ -16,10 +16,10 @@ class CourseRepo {
         return api.get(`${ROUTES.STUDENTS}?${query}`)
     }
 
-    // buyCourse(data) {
-    //     const URL = `${ROUTES.STUDENT}${ROUTES.REQUEST_COURSE}/${data.id}`;
-    //     return api.post(URL, data.data);
-    // }
+    buyCourse(data: any) {
+        const URL = `${ROUTES.STUDENT}${ROUTES.REQUEST_COURSE}/${data.id}`;
+        return api.post(URL, data.data);
+    }
 
     createCourse(data: any) {
         return api.post(ROUTES.COURSES, data);

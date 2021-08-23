@@ -5,8 +5,10 @@ import StudentsOnCourseHook from '../../Components/CustomHooks/StudentsOnCourseH
 import { useMutation } from 'react-query';
 import { courseService } from '../../Modules/CourseModule/Course.service';
 import { ActionTypes } from '../../Context/Reducers/Teacher/TeacherProvider.types';
-
-import SingleCourseComponent from '../../Context/Reducers/Teacher/SingleCourseComponent';
+// COMPONENTS
+import SingleCourseComponent from '../../Components/Teacher/SingleCourseComponent';
+import SingleCourseStudentComponent from '../../Components/Student/SingleCourseStudentComponent';
+// END :: COMPONENTS
 
 const courseInterface = {
     name: '',
@@ -57,7 +59,7 @@ const SingleCourse: React.FC = () => {
                     </div>
                     :
                     <div className="flex flex-col items-center w-full">
-                        {/* <SingleCourseStudentComponent data={course}></SingleCourseStudentComponent> */}
+                        <SingleCourseStudentComponent data={contextState.singleCourse}></SingleCourseStudentComponent>
                     </div>
             }
         </div>

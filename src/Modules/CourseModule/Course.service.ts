@@ -6,12 +6,12 @@ class CourseService {
         return courseRepo.studentsOnCourse(data);
     }
 
-    // buyCourse(data) {
-    //     return courseRepo.buyCourse({
-    //         id: data.id,
-    //         data: omit(data, ['id'])
-    //     });
-    // }
+    buyCourse(data: any) {
+        return courseRepo.buyCourse({
+            id: data.id,
+            data: omit(data, ['id'])
+        });
+    }
 
     createCourse(data: any) {
         return courseRepo.createCourse(data);

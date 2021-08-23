@@ -5,7 +5,7 @@ import { ActionTypes } from "../../Context/Reducers/App/AppProvider.types";
 import { personService } from "../../Modules/PersonModule/Person.service";
 // COMPONENTS
 import TeacherProfileComponent from "../../Components/Teacher/TeacherProfileComponent";
-import StudentProfileComponent from "../../Components/Teacher/StudentProfileComponent";
+import StudentProfileComponent from "../../Components/Student/StudentProfileComponent";
 // END :: COMPONENTS
 
 const Profile: React.FC = () => {
