@@ -1,5 +1,5 @@
 import { courseRepo } from "./Course.repo";
-// import omit from "lodash/omit";
+import omit from "lodash/omit";
 
 class CourseService {
     // studentsOnCourse(data) {
@@ -29,14 +29,14 @@ class CourseService {
     // //     return adminRepo.fetchMyCourses(id);
     // // }
 
-    // completeCourse(data) {
-    //     return courseRepo.completeCourse({
-    //         courseId: data.courseId,
-    //         teacherId: data.teacherId,
-    //         userId: data.userId,
-    //         data: omit(data, ['courseId', 'teacherId', 'userId'])
-    //     });
-    // }
+    completeCourse(data: any) {
+        return courseRepo.completeCourse({
+            courseId: data.courseId,
+            teacherId: data.teacherId,
+            userId: data.userId,
+            data: omit(data, ['courseId', 'teacherId', 'userId'])
+        });
+    }
 }
 
 export const courseService = new CourseService();

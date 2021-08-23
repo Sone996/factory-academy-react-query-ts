@@ -1,4 +1,4 @@
-import { IAppState, ActionTypes, Action } from "./AppProvider.types";
+import { IAppState, IModal, ActionTypes, Action } from "./AppProvider.types";
 
 export const initState: IAppState = {
     user: null,
@@ -7,9 +7,15 @@ export const initState: IAppState = {
     success: null,
     profileData: null,
     allCourses: [],
+    modal: {
+        name: '',
+        status: false,
+        data: null
+    },
 };
 
 export const appReducer = (initState: IAppState, action: Action): IAppState => {
+    console.log(action)
     switch (action.type) {
         case ActionTypes.SET_LOADER:
             return {
@@ -40,6 +46,11 @@ export const appReducer = (initState: IAppState, action: Action): IAppState => {
             return {
                 ...initState,
                 allCourses: action.payload
+            }
+        case ActionTypes.SET_MODAL:
+            return {
+                ...initState,
+                modal: action.payload
             }
         default:
             break;

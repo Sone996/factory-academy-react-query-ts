@@ -1,27 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 //import { ReactQueryDevtools } from 'react-query/devtools';
 import { BrowserRouter as Router, Switch, Route, Redirect, useLocation } from 'react-router-dom';
-// CONTEXT
-import AppProvider from './Context/AppProvider';
-// END :: CONTEXT
-// CUSTOM SERVICES
+import AppProvider, { AppContext } from './Context/AppProvider';
 import { state, combineReducers } from './Context/Reducers';
 import { ProtectedRoute } from './Services/ProtectedRoute';
-// END :: CUSTOM SERVICES
+import { appReducer } from './Context/Reducers/App/App.reducer';
+import { teacherReducer } from './Context/Reducers/Teacher/Teacher.reducer';
+import { studentReducer } from './Context/Reducers/Student/Student.reducer';
 // PAGES
 import Login from './Pages/Login';
-// import TeacherHome from './Pages/Teacher/TeacherHome';
 // END :: PAGES
 // COMPONENTS
 import AppLayoutNavigation from './Components/Shared/AppLayoutNavigation';
 import Loader from './Components/UI/Loader';
+import FinishingCourseModal from './Components/Modals/FinishingCourseModal';
 // END :: COMPONENTS
-// REDUCERS
-import { appReducer } from './Context/Reducers/App/App.reducer';
-import { teacherReducer } from './Context/Reducers/Teacher/Teacher.reducer';
-import { studentReducer } from './Context/Reducers/Student/Student.reducer';
-// END :: REDUCERS
 // STYLE
 import './App.scss';
 // END:: STYLE
@@ -41,6 +35,7 @@ function App() {
     teacherReducer,
     studentReducer
   })
+  //const [contextState, dispatch] = useContext(AppContext);
 
   return (
     <AppProvider reducer={reducers} state={state}>
@@ -60,6 +55,18 @@ function App() {
             </Switch>
           </Router>
         </QueryClientProvider>
+        {/* {
+          contextState.modal.status
+            ?
+            <div className="fixed top-0 left-0 h-screen w-screen flex modal">
+              <div className="modal-overlay fixed top-0 left-0 modal-overlay h-screen w-screen flex"></div>
+              <div className="modal flex items-center justify-center w-full">
+                {modalSwitch(contextState.modal.modalName)}
+              </div>
+            </div>
+            :
+            <></>
+        } */}
         <Loader />
       </div>
     </AppProvider>

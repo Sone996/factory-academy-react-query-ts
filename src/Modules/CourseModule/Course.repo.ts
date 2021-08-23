@@ -38,10 +38,10 @@ class CourseRepo {
     // //     return api.get(URL);
     // // }
 
-    // completeCourse(data) {
-    //     const URL = `${ROUTES.STUDENT}/${data.userId}${ROUTES.COURSE}/${data.courseId}${ROUTES.TEACHER}/${data.teacherId}`;
-    //     return api.patch(URL, data.data);
-    // }
+    completeCourse(data: any) {
+        const URL = `${ROUTES.STUDENT}/${data.userId}${ROUTES.COURSE}/${data.courseId}${ROUTES.TEACHER}/${data.teacherId}`;
+        return api.patch(URL, data.data);
+    }
 }
 
 export const courseRepo = new CourseRepo();

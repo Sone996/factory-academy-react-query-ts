@@ -1,68 +1,50 @@
-import React, {useState, useContext} from "react";
+import React, { useContext, useState } from "react";
 import { AppContext } from "../../Context/AppProvider";
 import StudentAplicationsHook from "../../Components/CustomHooks/StudentAplicationsHook";
 
 import Scroll from "../../Components/Shared/Scroll";
 import SimpleTable from "../../Components/Shared/SimpleTable";
+import { ActionTypes } from "../../Context/Reducers/App/AppProvider.types";
 
 const StudentAplications: React.FC = () => {
 
-    const [ contextState, dispatch ] = useContext(AppContext);
+    const [contextState, dispatch] = useContext(AppContext);
 
     const [model, setModel] = useState([]);
-    const [aplications, setAplications] = useState([]);
+    // const [aplications, setAplications] = useState([]);
     const titles = ['Student Id', 'COurse Id', 'Accept'];
-
-    
 
     const getActive = () => {
         setModel(contextState.activeAplications);
-        // var active = [];
-        // var i = 0;
-        // aplications.forEach((aplication) => {
-        //     if (aplication.accepted === true) {
-        //         active[i] = aplication;
-        //         i++;
-        //     }
-        // });
-        // setModel(active);
     }
 
     const getInactive = () => {
         setModel(contextState.inactiveAplications);
-        // var inactive = [];
-        // var i = 0;
-        // aplications.forEach((aplication) => {
-        //     if (aplication.accepted === false) {
-        //         inactive[i] = aplication;
-        //         i++;
-        //     }
-        // });
-        // setModel(inactive)
     }
+
     const singleView = (item: any) => {
-        // if (item.accepted === true) {
-        //     setModal({
-        //         ...modal,
-        //         status: true,
-        //         modalName: 'finishing-course-modal',
-        //         data: item
-        //     })
-        // } else {
-        //     setModal({
-        //         ...modal,
-        //         status: true,
-        //         modalName: 'requrest-accept-modal',
-        //         data: item
-        //     })
-        // }
+        if (item.accepted === true) {
+            dispatch({
+                type: ActionTypes.SET_MODAL,
+                payload: {
+                    name: 'finishing-course-modal',
+                    status: true,
+                    data: item
+                }
+            })
+        } else {
+            dispatch({
+                type: ActionTypes.SET_MODAL,
+                payload: {
+                    name: 'requrest-accept-modal',
+                    status: true,
+                    data: item
+                }
+            })
+        }
     }
 
     StudentAplicationsHook();
-
-    console.log(contextState);
-
-    
 
     return (
         <div className="student-aplications flex-col flex w-full">

@@ -17,6 +17,10 @@ import NewCourse from "../../Pages/Teacher/NewCourse";
 import CourseList from "../../Pages/Shared/CourseList";
 import StudentAplications from "../../Pages/Teacher/StudentAplications";
 // END :: PAGES
+// MODALS
+import FinishingCourseModal from "../Modals/FinishingCourseModal";
+import RequestAcceptModal from "../Modals/RequestAcceptModal";
+// END :: MODALS
 
 const AppLayoutNavigation: React.FC = () => {
 
@@ -25,7 +29,7 @@ const AppLayoutNavigation: React.FC = () => {
     const history: any = useHistory();
 
     const goHome = () => { }
-    const goProfile = () => { 
+    const goProfile = () => {
         personService.goProfile(contextState.user.data.id)
             .then(res => {
                 dispatch({
@@ -37,7 +41,7 @@ const AppLayoutNavigation: React.FC = () => {
             .catch(err => {
                 console.log(err.response.data.errors);
             });
-     }
+    }
     const myStudents = () => {
         history.push('/member-list');
     }
@@ -61,8 +65,43 @@ const AppLayoutNavigation: React.FC = () => {
         }
     })
 
+    const modalSwitch = (prop: any) => {
+        console.log(prop)
+        switch (prop) {
+            case 'finishing-course-modal':
+                return <FinishingCourseModal />;
+            case 'requrest-accept-modal':
+                return <RequestAcceptModal />;
+            case 'rate-course':
+                return;
+            //  return <RateCourse />;
+            case 'notification-modal':
+                return;
+            //  return <NotificationModal />;
+            default:
+                break;
+        }
+    }
+
     return (
         <div className="flex w-full h-full">
+
+
+            {
+                contextState.modal.status
+                    ?
+                    <div className="fixed top-0 left-0 h-screen w-screen flex modal">
+                        <div className="modal-overlay fixed top-0 left-0 modal-overlay h-screen w-screen flex"></div>
+                        <div className="modal flex items-center justify-center w-full">
+                            {modalSwitch(contextState.modal.name)}
+                        </div>
+                    </div>
+                    :
+                    <></>
+            }
+
+
+
             <div className="flex flex-col h-full bg-gray-500 w-2/12 items-center">
                 <div className="flex p-16">
                     <img src={logo} alt="logo" className="cursor-pointer" onClick={goHome} />
