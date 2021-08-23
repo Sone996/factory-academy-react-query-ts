@@ -14,6 +14,7 @@ import Profile from "../../Pages/Shared/Profile";
 import { ActionTypes } from "../../Context/Reducers/App/AppProvider.types";
 import MemberList from "../../Pages/Teacher/MemberList";
 import NewCourse from "../../Pages/Teacher/NewCourse";
+import CourseList from "../../Pages/Shared/CourseList";
 // END :: PAGES
 
 const AppLayoutNavigation: React.FC = () => {
@@ -42,8 +43,12 @@ const AppLayoutNavigation: React.FC = () => {
     const newCourseHandler = () => {
         history.push('/new-course');
     }
-    const CourseListHandler = () => { }
+    const CourseListHandler = () => {
+        history.push('/course-list');
+    }
+
     const studentAplicationsHandler = () => { }
+
     const logout = () => {
         logoutMutation.mutate();
     }
@@ -88,7 +93,7 @@ const AppLayoutNavigation: React.FC = () => {
                     <Route path="/profile/:id" component={Profile} />
                     <Route path="/member-list" component={MemberList} />
                     <Route path="/new-course" component={NewCourse} />
-                    {/* <Route path="/course-list" component={CourseList} /> */}
+                    <Route path="/course-list" component={CourseList} />
                     {/* <Route path="/single-course/:id" component={SingleCourse} /> */}
                     {/* <Route path="/student-aplications" component={StudentAplications} /> */}
                 </Switch>

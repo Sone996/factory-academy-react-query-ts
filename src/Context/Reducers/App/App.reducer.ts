@@ -5,7 +5,8 @@ export const initState: IAppState = {
     loader: false,
     error: null,
     success: null,
-    profileData: null
+    profileData: null,
+    allCourses: [],
 };
 
 export const appReducer = (initState: IAppState, action: Action): IAppState => {
@@ -34,6 +35,11 @@ export const appReducer = (initState: IAppState, action: Action): IAppState => {
             return {
                 ...initState,
                 profileData: action.payload
+            }
+        case ActionTypes.SET_ALL_COURSES:
+            return {
+                ...initState,
+                allCourses: action.payload
             }
         default:
             break;
