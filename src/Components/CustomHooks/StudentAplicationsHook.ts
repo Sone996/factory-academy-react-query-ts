@@ -13,8 +13,8 @@ const StudentAplicationsHook = () => {
 
     const parseAplicationRequests = (data: any) => {
         let aplicationRequests = data.data;
-        let activeAplications: any = [];
-        let inactiveAplications: any = [];
+        let activeAplications: Array<{}> = [];
+        let inactiveAplications: Array<{}> = [];
 
         aplicationRequests.forEach((aplication: {}, i: number) => {
             aplicationRequests[i] = {

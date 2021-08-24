@@ -1,5 +1,4 @@
 import { QueryClient, QueryClientProvider } from 'react-query';
-//import { ReactQueryDevtools } from 'react-query/devtools';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import AppProvider from './Context/AppProvider';
 import { state, combineReducers } from './Context/Reducers';
@@ -52,18 +51,6 @@ function App() {
             </Switch>
           </Router>
         </QueryClientProvider>
-        {/* {
-          contextState.modal.status
-            ?
-            <div className="fixed top-0 left-0 h-screen w-screen flex modal">
-              <div className="modal-overlay fixed top-0 left-0 modal-overlay h-screen w-screen flex"></div>
-              <div className="modal flex items-center justify-center w-full">
-                {modalSwitch(contextState.modal.modalName)}
-              </div>
-            </div>
-            :
-            <></>
-        } */}
         <Loader />
       </div>
     </AppProvider>
