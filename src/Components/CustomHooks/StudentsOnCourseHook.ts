@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { useQuery } from "react-query";
 import { AppContext } from "../../Context/AppProvider";
 import { courseService } from "../../Modules/CourseModule/Course.service";

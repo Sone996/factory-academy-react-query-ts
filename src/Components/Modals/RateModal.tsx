@@ -15,17 +15,10 @@ const RateCourse = () => {
     const [contextState, dispatch] = useContext(AppContext);
     const [form, setForm] = useState(formInterface);
 
-    const commentHandler = (event: any) => {
+    const inputHandler = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setForm({
             ...form,
-            comment: event.target.value
-        })
-    }
-
-    const markHandler = (event: any) => {
-        setForm({
-            ...form,
-            mark: event.target.value
+            [event.target.name]: event.target.value
         })
     }
 
@@ -60,7 +53,7 @@ const RateCourse = () => {
             ...form,
             personId: contextState.user.data.id
         })
-    }, [contextState.modal.data])
+    }, [contextState.modal.data.id])
 
     return (
         <div id="rate-course-modal" className="rate-course-modal rounded-lg w-4/12 h-3/12 bg-gray-400 flex flex-col absolute text-tiny felx items-center justify-center" >
@@ -70,14 +63,16 @@ const RateCourse = () => {
             <div className="flex flex-col w-full p-4 pt-0">
                 <textarea
                     value={form.comment}
-                    onChange={commentHandler}
+                    onChange={inputHandler}
+                    name="comment"
                     className="border resize-none w-full rounded p-3"
                     placeholder="Your ocmment" />
                 <div className="flex w-full p-4 pl-0 items-center">
                     <span className="flex font-bold text-white mr-4">Rate here:</span>
                     <input
                         value={form.mark}
-                        onChange={markHandler}
+                        onChange={inputHandler}
+                        name='mark'
                         className="input"
                         type="text"
                         placeholder="1-5" />

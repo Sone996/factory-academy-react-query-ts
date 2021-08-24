@@ -36,7 +36,6 @@ const SingleCourseStudentComponent: React.FC = () => {
     }
 
     useEffect(() => {
-        console.log(contextState.singleCourse.id);
         setForm({
             ...form,
             id: contextState.singleCourse.id

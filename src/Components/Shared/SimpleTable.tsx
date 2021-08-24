@@ -1,25 +1,38 @@
 import React, { useEffect, useState } from "react";
 
+const modelCol = (model: Array<{}>, setColumn: any) => {
+  let len = Object.keys(model[0]).length;
+  let counter = 0;
+  let colName: any = [];
+  for (const key in model[0]) {
+    if (counter <= len) {
+      colName[counter] = key;
+      counter++;
+    }
+  }
+  setColumn(colName)
+}
+
 const SimpleTable:React.FC<{titles: any, model: any, singleView?: any}> = ({ titles, model, singleView }) => {
 
   const [column, setColumn] = useState([]);
 
-  const modelCol = () => {
-    let len = Object.keys(model[0]).length;
-    let counter = 0;
-    let colName: any = [];
-    for (const key in model[0]) {
-      if (counter <= len) {
-        colName[counter] = key;
-        counter++;
-      }
-    }
-    setColumn(colName)
-  }
+  // const modelCol = () => {
+  //   let len = Object.keys(model[0]).length;
+  //   let counter = 0;
+  //   let colName: any = [];
+  //   for (const key in model[0]) {
+  //     if (counter <= len) {
+  //       colName[counter] = key;
+  //       counter++;
+  //     }
+  //   }
+  //   setColumn(colName)
+  // }
 
   useEffect(() => {
     if(model.length > 0) {
-      modelCol();
+      modelCol(model, setColumn);
     }
   }, [model])
 

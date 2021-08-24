@@ -12,7 +12,11 @@ const formInterface = {
     accepted: null
 }
 
-const RequestAcceptModal = () => {
+const sendData = (requestAcceptMutation: any) => {
+    requestAcceptMutation.mutate();
+}
+
+const RequestAcceptModal: React.FC = () => {
 
     const [contextState, dispatch] = useContext(AppContext);
 
@@ -26,10 +30,9 @@ const RequestAcceptModal = () => {
         })
     }
 
-    const sendData = () => {
-        console.log(form);
-        requestAcceptMutation.mutate();
-    }
+    // const sendData = () => {
+    //     requestAcceptMutation.mutate();
+    // }
 
     const close = () => {
         dispatch({
@@ -55,9 +58,9 @@ const RequestAcceptModal = () => {
 
     useEffect(() => {
         if (form.accepted != null) {
-            sendData();
+            sendData(requestAcceptMutation);
         }
-    }, [form.accepted])
+    }, [form.accepted, requestAcceptMutation])
 
     return (
         <div id="requrest-accept-modal" className="requrest-accept-modal h-1/6 rounded-lg w-2/12 h-3/12 bg-gray-400 flex flex-row absolute text-tiny felx items-center justify-center">

@@ -8,25 +8,25 @@ import TeacherProfileComponent from "../../Components/Teacher/TeacherProfileComp
 import StudentProfileComponent from "../../Components/Student/StudentProfileComponent";
 // END :: COMPONENTS
 
+const initLoad = (fullPath: string, dispatch: any) => {
+    let lastPart = fullPath.split("/");
+    let id = lastPart[lastPart.length - 1];
+    personService.goProfile(id).then(res => {
+        dispatch({
+            type: ActionTypes.SET_PROFILE_DATA,
+            payload: res.data
+        })
+    }).catch();
+}
+
 const Profile: React.FC = () => {
 
     const [stateContext, dispatch] = useContext(AppContext);
     const history = useHistory();
 
-    const initLoad = () => {
-        let x = history.location.pathname.split("/");
-        let id = x[x.length - 1];
-        personService.goProfile(id).then(res => {
-            dispatch({
-                type: ActionTypes.SET_PROFILE_DATA,
-                payload: res.data
-            })
-        }).catch();
-    }
-
     useEffect(() => {
-        initLoad();
-    }, [history.location.pathname])
+        initLoad(history.location.pathname, dispatch);
+    }, [history.location.pathname, dispatch])
 
     return (
         <div className="profile flex flex-col w-full h-full">
@@ -37,7 +37,7 @@ const Profile: React.FC = () => {
                 <span>Role: {stateContext.profileData?.role}</span>
             </div>
             <div className="flex flex-col h-full">
-                {stateContext.user.data.role === 'teacher' ? <TeacherProfileComponent /> : <StudentProfileComponent /> }
+                {stateContext.user.data.role === 'teacher' ? <TeacherProfileComponent /> : <StudentProfileComponent />}
             </div>
         </div>
     );

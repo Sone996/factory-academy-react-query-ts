@@ -24,6 +24,10 @@ import RequestAcceptModal from "../Modals/RequestAcceptModal";
 import RateCourse from "../Modals/RateModal";
 // END :: MODALS
 
+const notRated = (notRatedMutation: any) => {
+    notRatedMutation.mutate();
+}
+
 const AppLayoutNavigation: React.FC = () => {
 
     const [contextState, dispatch] = useContext(AppContext);
@@ -88,10 +92,6 @@ const AppLayoutNavigation: React.FC = () => {
         }
     })
 
-    const notRated = () => {
-        notRatedMutation.mutate();
-    }
-
     const modalSwitch = (prop: any) => {
         switch (prop) {
             case 'finishing-course-modal':
@@ -107,9 +107,9 @@ const AppLayoutNavigation: React.FC = () => {
 
     useEffect(() => {
         if (contextState.user.data?.role === 'student') {
-            notRated();
+            notRated(notRatedMutation);
         }
-    }, [contextState.user.data])
+    }, [contextState.user.data.role, notRatedMutation])
 
     return (
         <div className="flex w-full h-full">

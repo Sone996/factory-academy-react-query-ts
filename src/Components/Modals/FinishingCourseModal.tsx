@@ -7,18 +7,17 @@ import { courseService } from '../../Modules/CourseModule/Course.service';
 import { ActionTypes } from '../../Context/Reducers/App/AppProvider.types';
 import { useMutation } from 'react-query';
 
-const formInterface = {
-    courseId: null,
-    userId: null,
-    teacherId: null,
-    complete: true,
+interface form {
+    complete: boolean,
+    courseId: string | number,
+    userId: string | number,
+    teacherId: string | number
 }
-
 const FinishingCourseModal: React.FC = () => {
 
     const [contextState, dispatch] = useContext(AppContext);
 
-    const [form, setForm] = useState(formInterface);
+    const [form, setForm] = useState<form>();
 
     const cancel = () => {
         dispatch({
@@ -37,12 +36,10 @@ const FinishingCourseModal: React.FC = () => {
 
     const finishCourseMutation = useMutation(() => courseService.completeCourse(form), {
         onError: (err) => {
-            console.log(err);
             errorMsg(notificationMsg(err, null));
             cancel();
         },
         onSuccess: (res) => {
-            console.log('uspesno!!!');
             successMsg(notificationMsg(res, 'COURSE_FINISHED'));
             cancel();
         }
@@ -50,12 +47,12 @@ const FinishingCourseModal: React.FC = () => {
 
     useEffect(() => {
         setForm({
-            ...form,
+            complete: true,
             courseId: contextState.modal.data.course_id,
             userId: contextState.modal.data.student_id,
             teacherId: contextState.user.data.id
         })
-    }, [contextState.modal.data])
+    }, [contextState.modal.data.course_id, contextState.modal.data.student_id, contextState.user.data.id])
 
     return (
         <div id="finishing-course-modal" className="course-course-modal rounded-lg w-4/12 xl:w-2/12 h-3/12 bg-gray-400 flex flex-row absolute text-tiny felx items-center justify-center">

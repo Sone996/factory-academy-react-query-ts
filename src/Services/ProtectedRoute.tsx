@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, ComponentElement } from "react";
+import React, { useEffect, useContext } from "react";
 import { Route, useHistory } from "react-router-dom";
 
 import { AppContext } from "../Context/AppProvider";
@@ -11,7 +11,7 @@ export const ProtectedRoute: React.FC<any> = ({ component: Component, setUser, .
     const history = useHistory();
     
     // eslint-disable-next-line
-    const [contextState, dispatch] = useContext(AppContext);
+    const [contextState] = useContext(AppContext);
 
     useFetchActiveUser();
 
@@ -19,7 +19,7 @@ export const ProtectedRoute: React.FC<any> = ({ component: Component, setUser, .
         if (!authService.isLogged()) {
             history.push('/login');
         }
-    }, []);
+    }, [history]);
 
     if (!contextState.user) {
         return null;

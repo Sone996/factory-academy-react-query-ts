@@ -33,7 +33,7 @@ const SingleCourse: React.FC = () => {
 
     useEffect(() => {
         singlecourseMutation.mutate();
-    }, [])
+    }, [singlecourseMutation])
 
     return (
         <div className="course flex w-full">

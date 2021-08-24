@@ -1,4 +1,4 @@
-import { IAppState, IModal, ActionTypes, Action } from "./AppProvider.types";
+import { IAppState, ActionTypes, Action } from "./AppProvider.types";
 
 export const initState: IAppState = {
     user: null,
