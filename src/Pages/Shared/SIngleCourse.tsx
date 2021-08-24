@@ -59,7 +59,7 @@ const SingleCourse: React.FC = () => {
                     </div>
                     :
                     <div className="flex flex-col items-center w-full">
-                        <SingleCourseStudentComponent data={contextState.singleCourse}></SingleCourseStudentComponent>
+                        <SingleCourseStudentComponent />
                     </div>
             }
         </div>

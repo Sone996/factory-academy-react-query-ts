@@ -34,16 +34,16 @@ class PersonService {
         });
     }
 
-    // fetchNotRatedCourses(data: any) {
-    //     return personRepo.fetchNotRatedCourses(data);
-    // }
+    fetchNotRatedCourses(data: any) {
+        return personRepo.fetchNotRatedCourses(data);
+    }
 
-    // completeCourse(data: any) {
-    //     return personRepo.completeCourse({
-    //         personId: data.personId,
-    //         data: omit(data, ['personId'])
-    //     });
-    // }
+    completeCourse(data: any) {
+        return personRepo.completeCourse({
+            personId: data.personId,
+            data: omit(data, ['personId'])
+        });
+    }
 }
 
 export const personService = new PersonService();

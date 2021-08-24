@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useMutation } from 'react-query';
 import { useHistory } from 'react-router-dom';
+import { AppContext } from '../../Context/AppProvider';
 import { courseService } from '../../Modules/CourseModule/Course.service';
 
 const formInterface = {
@@ -8,10 +9,10 @@ const formInterface = {
     comment: '',
 }
 
-const SingleCourseStudentComponent = ({ data }: any) => {
+const SingleCourseStudentComponent = () => {
 
+    const [contextState, dispatch] = useContext(AppContext);
     const [form, setForm] = useState(formInterface);
-    const history = useHistory();
 
     const commentHandler = (event: any) => {
         setForm({
@@ -36,7 +37,7 @@ const SingleCourseStudentComponent = ({ data }: any) => {
     useEffect(() => {
         setForm({
             ...form,
-            id: data.id
+            id: contextState.singleCourse.id
         })
     }, [])
 

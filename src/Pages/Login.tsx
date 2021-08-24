@@ -51,7 +51,7 @@ const Login: React.FC = () => {
                 payload: true
             });
         },
-        onSuccess: (response: any) => {
+        onSettled: (response: any) => {
             dispatch({
                 type: ActionTypes.SET_LOADER,
                 payload: false

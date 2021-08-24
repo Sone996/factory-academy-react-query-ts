@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { useMutation } from "react-query";
 import { Switch, Route } from "react-router";
 import { useHistory } from "react-router-dom";
@@ -21,6 +21,7 @@ import SingleCourse from "../../Pages/Shared/SIngleCourse";
 // MODALS
 import FinishingCourseModal from "../Modals/FinishingCourseModal";
 import RequestAcceptModal from "../Modals/RequestAcceptModal";
+import RateCourse from "../Modals/RateModal";
 // END :: MODALS
 
 const AppLayoutNavigation: React.FC = () => {
@@ -30,7 +31,7 @@ const AppLayoutNavigation: React.FC = () => {
     const history: any = useHistory();
 
     const goHome = () => {
-        if(contextState.user.data?.role === 'teacher') {
+        if (contextState.user.data?.role === 'teacher') {
             history.push('/teacher-home');
         } else {
             history.push('/student-home');
@@ -72,16 +73,35 @@ const AppLayoutNavigation: React.FC = () => {
         }
     })
 
+    const notRatedMutation = useMutation(() => personService.fetchNotRatedCourses(contextState.user.data.id), {
+        onSettled: (val: any) => {
+            if (Object.keys(val.data).length > 0) {
+                dispatch({
+                    type: ActionTypes.SET_MODAL,
+                    payload: {
+                        name: 'rate-course',
+                        status: true,
+                        data: val.data
+                    }
+                })
+            } else {
+                console.log('nema')
+            }
+        }
+    })
+
+    const notRated = () => {
+        notRatedMutation.mutate();
+    }
+
     const modalSwitch = (prop: any) => {
-        console.log(prop)
         switch (prop) {
             case 'finishing-course-modal':
                 return <FinishingCourseModal />;
             case 'requrest-accept-modal':
                 return <RequestAcceptModal />;
             case 'rate-course':
-                return;
-            //  return <RateCourse />;
+                return <RateCourse />;
             case 'notification-modal':
                 return;
             //  return <NotificationModal />;
@@ -90,25 +110,26 @@ const AppLayoutNavigation: React.FC = () => {
         }
     }
 
+    useEffect(() => {
+        if (contextState.user.data.role === 'student') {
+            notRated();
+        }
+    }, [contextState.user.data])
+
     return (
         <div className="flex w-full h-full">
-
-
-            {
-                contextState.modal.status
-                    ?
-                    <div className="fixed top-0 left-0 h-screen w-screen flex modal">
-                        <div className="modal-overlay fixed top-0 left-0 modal-overlay h-screen w-screen flex"></div>
-                        <div className="modal flex items-center justify-center w-full">
-                            {modalSwitch(contextState.modal.name)}
-                        </div>
+            {/* MODALS */}
+            {contextState.modal.status ?
+                <div className="fixed top-0 left-0 h-screen w-screen flex modal">
+                    <div className="modal-overlay fixed top-0 left-0 modal-overlay h-screen w-screen flex"></div>
+                    <div className="modal flex items-center justify-center w-full">
+                        {modalSwitch(contextState.modal.name)}
                     </div>
-                    :
-                    <></>
+                </div>
+                :
+                <></>
             }
-
-
-
+            {/* END :: MODALS */}
             <div className="flex flex-col h-full bg-gray-500 w-2/12 items-center">
                 <div className="flex p-16">
                     <img src={logo} alt="logo" className="cursor-pointer" onClick={goHome} />
@@ -117,7 +138,7 @@ const AppLayoutNavigation: React.FC = () => {
                     <span className="my-2 cursor-pointer" onClick={goHome}>Home</span>
                     <span className="my-2 cursor-pointer" onClick={goProfile}>Profile</span>
                     {
-                        contextState.user && contextState.user.data.role === 'teacher' ?
+                        contextState.user && contextState.user.data?.role === 'teacher' ?
                             <>
                                 <span className="my-2 cursor-pointer" onClick={myStudents}>My Students</span>
                                 <span className="my-2 cursor-pointer" onClick={newCourseHandler} > New Course</span >
