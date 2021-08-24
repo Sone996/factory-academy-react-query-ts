@@ -3,9 +3,12 @@ import { useQuery } from "react-query";
 import { AppContext } from "../../Context/AppProvider";
 import { ActionTypes } from "../../Context/Reducers/Teacher/TeacherProvider.types";
 import { personService } from "../../Modules/PersonModule/Person.service";
+import { notificationMsg } from "../../Services/BaseService";
+import { errorMsg } from "../../Services/MessageDisplayHandler";
 
 const StudentAplicationsHook = () => {
 
+    // eslint-disable-next-line
     const [contextState, dispatch] = useContext(AppContext);
 
     const parseAplicationRequests = (data: any) => {
@@ -41,6 +44,9 @@ const StudentAplicationsHook = () => {
     }
 
     return useQuery('studentAPlications', fetchStudentAplications, {
+        onError: (err: any) => {
+            errorMsg(notificationMsg(err, null));
+        },
         onSettled: (val: any) => {
             parseAplicationRequests(val);
         }

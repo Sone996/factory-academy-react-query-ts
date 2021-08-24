@@ -1,17 +1,18 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useMutation } from 'react-query';
-import { useHistory } from 'react-router-dom';
 import { AppContext } from '../../Context/AppProvider';
 import { courseService } from '../../Modules/CourseModule/Course.service';
+import { notificationMsg } from '../../Services/BaseService';
+import { successMsg, errorMsg } from '../../Services/MessageDisplayHandler';
 
 const formInterface = {
     id: '',
     comment: '',
 }
 
-const SingleCourseStudentComponent = () => {
+const SingleCourseStudentComponent: React.FC = () => {
 
-    const [contextState, dispatch] = useContext(AppContext);
+    const [contextState] = useContext(AppContext);
     const [form, setForm] = useState(formInterface);
 
     const commentHandler = (event: any) => {
@@ -23,10 +24,10 @@ const SingleCourseStudentComponent = () => {
 
     const studentSingleCourseMutation = useMutation(() => courseService.buyCourse(form), {
         onError: (err: any) => {
-            console.log(err.response.data.errors);
+            errorMsg(notificationMsg(err, null))
         },
         onSettled: (val: any) => {
-            console.log('Kupljeno!!!');
+            successMsg(notificationMsg(val, 'COURSE_BOUGHT'))
         }
     })
 
@@ -35,6 +36,7 @@ const SingleCourseStudentComponent = () => {
     }
 
     useEffect(() => {
+        console.log(contextState.singleCourse.id);
         setForm({
             ...form,
             id: contextState.singleCourse.id

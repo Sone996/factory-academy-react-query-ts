@@ -3,8 +3,12 @@ import { useQuery } from "react-query";
 import { AppContext } from "../../Context/AppProvider";
 import { personService } from "../../Modules/PersonModule/Person.service";
 import { ActionTypes } from "../../Context/Reducers/Student/StudentProvider.types";
+import { notificationMsg } from "../../Services/BaseService";
+import { errorMsg } from "../../Services/MessageDisplayHandler";
+
 const StudentHomeHook = () => {
 
+    // eslint-disable-next-line
     const [contextState, dispatch] = useContext(AppContext);
 
     const parsenotCompletedCourses = (data: any) => {
@@ -26,11 +30,13 @@ const StudentHomeHook = () => {
 
     const fetchCourese = async () => {
         const res = await personService.fetchNotCompletedCourses();
-        console.log(res);
         return res;
     }
 
     return useQuery('studentHome', fetchCourese, {
+        onError: (err: any) => {
+            errorMsg(notificationMsg(err, null));
+        },
         onSettled: (val: any) => {
             parsenotCompletedCourses(val);
         } 

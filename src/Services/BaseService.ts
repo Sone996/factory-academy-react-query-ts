@@ -1,6 +1,6 @@
 import { ERROR_CODES, SUCCESS_CODES } from '../Constants/Messages'
 
-export const notificationMsg = (response: any, codeKey: number) => {
+export const notificationMsg = (response: any, codeKey: any | null) => {
     if (response && response.status === 200) {
         if (!codeKey) {
             return 'Success!'

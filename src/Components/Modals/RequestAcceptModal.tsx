@@ -1,5 +1,7 @@
 import '../../App.scss';
 import React, { useContext, useEffect, useState } from 'react';
+import { notificationMsg } from '../../Services/BaseService';
+import { successMsg, errorMsg } from '../../Services/MessageDisplayHandler';
 import { AppContext } from '../../Context/AppProvider';
 import { personService } from '../../Modules/PersonModule/Person.service';
 import { ActionTypes } from '../../Context/Reducers/App/AppProvider.types';
@@ -42,11 +44,11 @@ const RequestAcceptModal = () => {
 
     const requestAcceptMutation = useMutation(() => personService.resolveRequest(form), {
         onError: (err: any) => {
-            console.log(err.response.data.errors);
+            errorMsg(notificationMsg(err, null))
             close();
         },
-        onSuccess: () => {
-            console.log('uspeo!!!');
+        onSuccess: (res: any) => {
+            successMsg(notificationMsg(res, 'REQUEST_ACCEPTED'))
             close();
         }
     })

@@ -8,7 +8,7 @@ import { AppContext } from "../../Context/AppProvider";
 const MemberList: React.FC = () => {
 
     const titles = ['Id', 'Student', 'Course', 'Date of Start'];
-    const [contextState, dispatch] = useContext(AppContext);
+    const [contextState] = useContext(AppContext);
     const history = useHistory();
 
     MemberListHook();

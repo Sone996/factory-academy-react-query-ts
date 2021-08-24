@@ -7,18 +7,15 @@ import SimpleTable from '../../Components/Shared/SimpleTable';
 
 const CourseList: React.FC = () => {
 
-    const [contextState, dispatch] = useContext(AppContext);
+    const [contextState] = useContext(AppContext);
     const titles = ['Id', 'Name', 'Average Mark', 'Price'];
     const history = useHistory();
 
     const singleView = (item: any) => {
-        console.log(item)
-        // history.push({ pathname: `/single-course/${item.id}` });
+        history.push({ pathname: `/single-course/${item.id}` });
     }
 
     CourseListHook();
-
-    //console.log(contextState.allCourses)
 
     return (
         <div className="professor-home flex-col flex w-full">

@@ -3,10 +3,12 @@ import { useQuery } from "react-query";
 import { AppContext } from "../../Context/AppProvider";
 import { courseService } from "../../Modules/CourseModule/Course.service";
 import { ActionTypes } from "../../Context/Reducers/Teacher/TeacherProvider.types";
-
+import { notificationMsg } from "../../Services/BaseService";
+import { errorMsg } from "../../Services/MessageDisplayHandler";
 
 const StudentsOnCourseHook = (props: any) => {
 
+    // eslint-disable-next-line
     const [contextState, dispatch] = useContext(AppContext);
 
     const studentsOnCourse = async () => {
@@ -31,6 +33,9 @@ const StudentsOnCourseHook = (props: any) => {
     }
 
     return useQuery('studentsOnCourse', studentsOnCourse, {
+        onError: (err: any) => {
+            errorMsg(notificationMsg(err, null));
+        },
         onSettled: (val: any) => {
             parseStudentsOnCourse(val);
         }

@@ -1,8 +1,7 @@
-import React, { useContext } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 //import { ReactQueryDevtools } from 'react-query/devtools';
-import { BrowserRouter as Router, Switch, Route, Redirect, useLocation } from 'react-router-dom';
-import AppProvider, { AppContext } from './Context/AppProvider';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import AppProvider from './Context/AppProvider';
 import { state, combineReducers } from './Context/Reducers';
 import { ProtectedRoute } from './Services/ProtectedRoute';
 import { appReducer } from './Context/Reducers/App/App.reducer';
@@ -14,7 +13,6 @@ import Login from './Pages/Login';
 // COMPONENTS
 import AppLayoutNavigation from './Components/Shared/AppLayoutNavigation';
 import Loader from './Components/UI/Loader';
-import FinishingCourseModal from './Components/Modals/FinishingCourseModal';
 // END :: COMPONENTS
 // STYLE
 import './App.scss';
@@ -35,7 +33,6 @@ function App() {
     teacherReducer,
     studentReducer
   })
-  //const [contextState, dispatch] = useContext(AppContext);
 
   return (
     <AppProvider reducer={reducers} state={state}>

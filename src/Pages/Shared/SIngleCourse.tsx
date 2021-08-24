@@ -10,12 +10,6 @@ import SingleCourseComponent from '../../Components/Teacher/SingleCourseComponen
 import SingleCourseStudentComponent from '../../Components/Student/SingleCourseStudentComponent';
 // END :: COMPONENTS
 
-const courseInterface = {
-    name: '',
-    price: '',
-    description: '',
-}
-
 const SingleCourse: React.FC = () => {
 
     const [contextState, dispatch] = useContext(AppContext);
@@ -59,7 +53,7 @@ const SingleCourse: React.FC = () => {
                     </div>
                     :
                     <div className="flex flex-col items-center w-full">
-                        <SingleCourseStudentComponent />
+                        { contextState.singleCourse ? <SingleCourseStudentComponent /> : <></> }
                     </div>
             }
         </div>

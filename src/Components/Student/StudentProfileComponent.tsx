@@ -8,7 +8,7 @@ import SimpleTable from "../Shared/SimpleTable";
 
 const StudentProfileComponent: React.FC = () => {
 
-    const [contextState, dispatch] = useContext(AppContext);
+    const [contextState] = useContext(AppContext);
     const titles = ['Id', 'Course Name', 'Mark'];
 
     StudentCompletedCoursesHook();

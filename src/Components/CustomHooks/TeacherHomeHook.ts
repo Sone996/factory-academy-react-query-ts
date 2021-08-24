@@ -3,6 +3,8 @@ import { useQuery } from "react-query";
 import { AppContext } from "../../Context/AppProvider";
 import { personService } from "../../Modules/PersonModule/Person.service";
 import { ActionTypes } from "../../Context/Reducers/Teacher/TeacherProvider.types";
+import { notificationMsg } from "../../Services/BaseService";
+import { errorMsg } from "../../Services/MessageDisplayHandler";
 
 const TeacherHomeHook = () => {
 
@@ -30,6 +32,9 @@ const TeacherHomeHook = () => {
     }
 
     return useQuery('teacher', fetchCourses, {
+        onError: (err: any) => {
+            errorMsg(notificationMsg(err, null));
+        },
         onSettled: (val: any) => {
             parseMyCourses(val);
         }

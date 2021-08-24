@@ -27,7 +27,10 @@ export const ERROR_CODES: iCodes = {
 export const SUCCESS_CODES: iCodes = {
     lOGIN_SUCCESS: 'Login success',
     REGISTER_SUCCESS: 'Register success',
-    COURSE_CREATED_SUCCESS: 'Corse has been created',
+    COURSE_CREATED_SUCCESS: 'Course has been created',
     COURSE_APPLYED_SUCCESS: 'Successfuly applyed for course',
     COURSE_RATED_SUCCESS: 'Course has been rated',
+    REQUEST_ACCEPTED: 'Request accepted',
+    COURSE_FINISHED: 'Course finished',
+    COURSE_BOUGHT: 'Course bought',
 };

@@ -3,9 +3,12 @@ import { useQuery } from "react-query";
 import { AppContext } from "../../Context/AppProvider";
 import { personService } from "../../Modules/PersonModule/Person.service";
 import { ActionTypes } from "../../Context/Reducers/Teacher/TeacherProvider.types";
+import { notificationMsg } from "../../Services/BaseService";
+import { errorMsg } from "../../Services/MessageDisplayHandler";
 
 const MemberListHook = () => {
 
+    // eslint-disable-next-line
     const [contextState, dispatch] = useContext(AppContext);
 
     const parseMyStudents = (data: any) => {
@@ -31,6 +34,9 @@ const MemberListHook = () => {
     }
 
     return useQuery('memberList', fetchMyStudents, {
+        onError: (err: any) => {
+            errorMsg(notificationMsg(err, null));
+        },
         onSettled: (val: any) => {
             parseMyStudents(val);
         }

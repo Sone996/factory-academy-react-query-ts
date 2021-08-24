@@ -84,8 +84,6 @@ const AppLayoutNavigation: React.FC = () => {
                         data: val.data
                     }
                 })
-            } else {
-                console.log('nema')
             }
         }
     })
@@ -102,16 +100,12 @@ const AppLayoutNavigation: React.FC = () => {
                 return <RequestAcceptModal />;
             case 'rate-course':
                 return <RateCourse />;
-            case 'notification-modal':
-                return;
-            //  return <NotificationModal />;
             default:
                 break;
         }
     }
 
     useEffect(() => {
-        console.log(contextState.user.data)
         if (contextState.user.data?.role === 'student') {
             notRated();
         }

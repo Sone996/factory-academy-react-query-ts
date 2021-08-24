@@ -1,5 +1,7 @@
 import React, { useContext, useState } from "react";
 import { useMutation } from "react-query";
+import { successMsg, errorMsg } from "../Services/MessageDisplayHandler";
+import { notificationMsg } from "../Services/BaseService";
 import { authService } from "../Modules/AuthModule/Auth.service";
 import { useHistory } from "react-router-dom";
 import { AppContext } from "../Context/AppProvider";
@@ -54,10 +56,10 @@ const Login: React.FC = () => {
                 type: ActionTypes.SET_LOADER,
                 payload: true
             });
-            setLoginForm({
-                email: '',
-                password: ''
-            })
+            setLoginForm(loginFormTemlate);
+        },
+        onError: (err: any) => {
+            errorMsg(notificationMsg(err, null));
         },
         onSettled: (response: any) => {
             dispatch({
@@ -68,7 +70,8 @@ const Login: React.FC = () => {
                 type: ActionTypes.SET_USER,
                 payload: response.data
             });
-            if(response.data.role === 'teacher') {
+            successMsg(notificationMsg(response, 'lOGIN_SUCCESS'));
+            if (response.data.role === 'teacher') {
                 history.push('/teacher-home');
             } else {
                 history.push('/student-home');
@@ -83,6 +86,14 @@ const Login: React.FC = () => {
                 payload: true
             });
         },
+        onError: (err: any) => {
+            setRegisterForm(registerFormTemplate);
+            dispatch({
+                type: ActionTypes.SET_LOADER,
+                payload: false
+            });
+            errorMsg(notificationMsg(err, null));
+        },
         onSuccess: (response: any) => {
             dispatch({
                 type: ActionTypes.SET_LOADER,
@@ -92,7 +103,6 @@ const Login: React.FC = () => {
                 type: ActionTypes.SET_USER,
                 payload: response.data
             });
-            console.log(response)
             loginMutation.mutate(loginForm);
         }
     })
@@ -141,9 +151,7 @@ const Login: React.FC = () => {
                     </div>
                     <div className="flex mt-4 justify-between">
                         <div className="button bg-blue-500 w-1/3" onClick={loginSubmit}>Login</div>
-                        <div className="button bg-darkGreen w-1/3" onClick={toggleForm}>
-                            Register
-                        </div>
+                        <div className="button bg-darkGreen w-1/3" onClick={toggleForm}>Register</div>
                     </div>
                 </div>
                 :

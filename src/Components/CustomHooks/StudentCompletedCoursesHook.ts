@@ -3,6 +3,8 @@ import { useQuery } from "react-query";
 import { AppContext } from "../../Context/AppProvider";
 import { ActionTypes } from "../../Context/Reducers/Student/StudentProvider.types";
 import { personService } from "../../Modules/PersonModule/Person.service";
+import { notificationMsg } from "../../Services/BaseService";
+import { errorMsg } from "../../Services/MessageDisplayHandler";
 
 const StudentCompletedCoursesHook = () => {
 
@@ -30,6 +32,9 @@ const StudentCompletedCoursesHook = () => {
     }
 
     return useQuery('completedCourses', fetchCompletedCourese, {
+        onError: (err: any) => {
+            errorMsg(notificationMsg(err, null));
+        },
         onSettled: (val: any) => {
             parseCompletedCourses(val);
         }

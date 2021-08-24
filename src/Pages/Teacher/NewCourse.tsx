@@ -1,8 +1,9 @@
-import react, { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import { useMutation } from 'react-query';
 import { AppContext } from '../../Context/AppProvider';
 import { ActionTypes } from '../../Context/Reducers/App/AppProvider.types';
-
+import { notificationMsg } from '../../Services/BaseService';
+import { successMsg, errorMsg } from '../../Services/MessageDisplayHandler';
 import { courseService } from '../../Modules/CourseModule/Course.service';
 
 const formInterface = {
@@ -13,6 +14,7 @@ const formInterface = {
 
 const NewCourse: React.FC = () => {
 
+    // eslint-disable-next-line
     const [contextState, dispatch] = useContext(AppContext);
     const [form, setForm] = useState(formInterface);
 
@@ -34,11 +36,19 @@ const NewCourse: React.FC = () => {
                 payload: true
             })
         },
-        onSuccess: () => {
+        onError: (err: any) => {
             dispatch({
                 type: ActionTypes.SET_LOADER,
                 payload: false
             })
+            errorMsg(notificationMsg(err, null));
+        },
+        onSuccess: (res: any) => {
+            dispatch({
+                type: ActionTypes.SET_LOADER,
+                payload: false
+            })
+            successMsg(notificationMsg(res, 'COURSE_CREATED_SUCCESS'));
             setForm(formInterface);
         }
     })

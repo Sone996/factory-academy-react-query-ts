@@ -9,6 +9,7 @@ import { useFetchActiveUser } from "./Router.service";
 
 export const ProtectedRoute: React.FC<any> = ({ component: Component, setUser, ...rest }) => {
     const history = useHistory();
+    
     // eslint-disable-next-line
     const [contextState, dispatch] = useContext(AppContext);
 

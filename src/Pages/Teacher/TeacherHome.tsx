@@ -7,7 +7,7 @@ import Scroll from "../../Components/Shared/Scroll";
 
 const TeacherHome: React.FC = () => {
 
-  const [contextState, dispatch] = useContext(AppContext);
+  const [contextState] = useContext(AppContext);
   const titles = ['Id', 'Name', 'Average Mark', 'Price'];
   const history = useHistory();
 
