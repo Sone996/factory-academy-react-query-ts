@@ -24,8 +24,9 @@ const MemberListHook = () => {
         })
     }
 
-    const fetchMyStudents = () => {
-        const res = personService.fetchMyStudents();
+    const fetchMyStudents = async () => {
+        const res = await personService.fetchMyStudents();
+        console.log(res)
         return res;
     }
 

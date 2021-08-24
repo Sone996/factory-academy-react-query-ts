@@ -29,6 +29,10 @@ const Login: React.FC = () => {
 
     const toggleForm = () => {
         setRegister(!register);
+        setLoginForm({
+            email: '',
+            password: ''
+        })
     }
 
     const loginSubmit = async () => {
@@ -50,6 +54,10 @@ const Login: React.FC = () => {
                 type: ActionTypes.SET_LOADER,
                 payload: true
             });
+            setLoginForm({
+                email: '',
+                password: ''
+            })
         },
         onSettled: (response: any) => {
             dispatch({
@@ -84,6 +92,7 @@ const Login: React.FC = () => {
                 type: ActionTypes.SET_USER,
                 payload: response.data
             });
+            console.log(response)
             loginMutation.mutate(loginForm);
         }
     })

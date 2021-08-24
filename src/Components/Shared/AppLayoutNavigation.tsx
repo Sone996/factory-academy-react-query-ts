@@ -111,7 +111,8 @@ const AppLayoutNavigation: React.FC = () => {
     }
 
     useEffect(() => {
-        if (contextState.user.data.role === 'student') {
+        console.log(contextState.user.data)
+        if (contextState.user.data?.role === 'student') {
             notRated();
         }
     }, [contextState.user.data])

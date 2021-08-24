@@ -17,6 +17,8 @@ const MemberList: React.FC = () => {
         history.push({ pathname: `/profile/${item.user_id}` });
     }
 
+    console.log(contextState.myStudents)
+
     return (
         <div className="member-list flex-col flex w-full">
             <div className="flex border-b py-4 px-4 w-full text-xl font-bold">

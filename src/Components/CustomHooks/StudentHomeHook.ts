@@ -26,6 +26,7 @@ const StudentHomeHook = () => {
 
     const fetchCourese = async () => {
         const res = await personService.fetchNotCompletedCourses();
+        console.log(res);
         return res;
     }
 
