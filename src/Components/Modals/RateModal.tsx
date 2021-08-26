@@ -10,7 +10,7 @@ const formInterface = {
     personId: null
 }
 
-const RateCourse = () => {
+const RateCourse: React.FC = () => {
 
     const [contextState, dispatch] = useContext(AppContext);
     const [form, setForm] = useState(formInterface);

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { useMutation } from "react-query";
-import { Switch, Route } from "react-router";
+import { Switch, Route } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import logo from '../../assets/images/factoryww.png'
 import { TOKEN_LS_NAME } from "../../Constants/Constants";
@@ -109,7 +109,7 @@ const AppLayoutNavigation: React.FC = () => {
         if (contextState.user.data?.role === 'student') {
             notRated(notRatedMutation);
         }
-    }, [contextState.user.data.role, notRatedMutation])
+    }, [contextState.user.data, notRatedMutation])
 
     return (
         <div className="flex w-full h-full">

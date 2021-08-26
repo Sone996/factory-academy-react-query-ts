@@ -42,12 +42,8 @@ function App() {
               <Route exact path='/login'>
                 <Login />
               </Route>
-              <ProtectedRoute exact path='*'>
-                <AppLayoutNavigation />
-              </ProtectedRoute>
-              <Route path="*" exact>
-                <Redirect to={{ pathname: '/login' }} />
-              </Route>
+              <ProtectedRoute path='*' component={AppLayoutNavigation}></ProtectedRoute>
+              <Route path="*" exact><Redirect to={{ pathname: '/login' }} /></Route>
             </Switch>
           </Router>
         </QueryClientProvider>
