@@ -1,10 +1,8 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { AppContext } from '../../Context/AppProvider';
 import StudentsOnCourseHook from '../../Components/CustomHooks/StudentsOnCourseHook';
-import { useMutation } from 'react-query';
-import { courseService } from '../../Modules/CourseModule/Course.service';
-import { ActionTypes } from '../../Context/Reducers/Teacher/TeacherProvider.types';
+import SingleCourseHook from '../../Components/CustomHooks/SingleCourseHook';
 // COMPONENTS
 import SingleCourseComponent from '../../Components/Teacher/SingleCourseComponent';
 import SingleCourseStudentComponent from '../../Components/Student/SingleCourseStudentComponent';
@@ -12,28 +10,18 @@ import SingleCourseStudentComponent from '../../Components/Student/SingleCourseS
 
 const SingleCourse: React.FC = () => {
 
-    const [contextState, dispatch] = useContext(AppContext);
+    const [contextState] = useContext(AppContext);
     const history = useHistory();
 
     let x = history.location.pathname.split("/");
     let id = x[x.length - 1];
 
-    const singlecourseMutation = useMutation(() => courseService.fetchSingleCours(id), {
-        onSettled: (val: any) => {
-            dispatch({
-                type: ActionTypes.SET_SINGLE_COURSE,
-                payload: val.data
-            })
-        }
-    })
+    SingleCourseHook(id);
 
     if(contextState.user.data.role === 'teacher') {
         StudentsOnCourseHook(id);
     }
-
-    useEffect(() => {
-        singlecourseMutation.mutate();
-    }, [singlecourseMutation])
+    console.log('single course')
 
     return (
         <div className="course flex w-full">

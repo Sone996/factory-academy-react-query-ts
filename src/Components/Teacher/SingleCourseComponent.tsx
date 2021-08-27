@@ -1,4 +1,3 @@
-import React from 'react'
 import SimpleTable from '../Shared/SimpleTable';
 
 const SingleCourseComponent = ({ tableData }: any) => {

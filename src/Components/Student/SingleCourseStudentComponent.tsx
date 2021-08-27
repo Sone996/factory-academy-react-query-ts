@@ -6,7 +6,7 @@ import { notificationMsg } from '../../Services/BaseService';
 import { successMsg, errorMsg } from '../../Services/MessageDisplayHandler';
 
 const formInterface = {
-    id: '',
+    id: null,
     comment: '',
 }
 
@@ -34,6 +34,8 @@ const SingleCourseStudentComponent: React.FC = () => {
     const buyCourse = () => {
         studentSingleCourseMutation.mutate();
     }
+
+    console.log('single course student component')
 
     useEffect(() => {
         setForm({

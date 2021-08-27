@@ -78,6 +78,9 @@ const AppLayoutNavigation: React.FC = () => {
     })
 
     const notRatedMutation = useMutation(() => personService.fetchNotRatedCourses(contextState.user.data.id), {
+        onError: (err) => {
+            console.log(err);
+        },
         onSettled: (val: any) => {
             if (Object.keys(val.data).length > 0) {
                 dispatch({
@@ -109,7 +112,7 @@ const AppLayoutNavigation: React.FC = () => {
         if (contextState.user.data?.role === 'student') {
             notRated(notRatedMutation);
         }
-    }, [contextState.user.data, notRatedMutation])
+    }, [contextState.user.data])
 
     return (
         <div className="flex w-full h-full">
