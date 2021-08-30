@@ -21,7 +21,6 @@ const SingleCourse: React.FC = () => {
     if(contextState.user.data.role === 'teacher') {
         StudentsOnCourseHook(id);
     }
-    console.log('single course')
 
     return (
         <div className="course flex w-full">

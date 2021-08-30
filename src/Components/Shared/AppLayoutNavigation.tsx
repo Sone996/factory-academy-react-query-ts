@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { useMutation } from "react-query";
 import { Switch, Route } from "react-router-dom";
 import { useHistory } from "react-router-dom";
@@ -7,6 +7,7 @@ import { TOKEN_LS_NAME } from "../../Constants/Constants";
 import { AppContext } from "../../Context/AppProvider";
 import { authService } from "../../Modules/AuthModule/Auth.service";
 import { personService } from "../../Modules/PersonModule/Person.service";
+import NotRatedHook from "../CustomHooks/NotRatedHook";
 // PAGES
 import TeacherHome from "../../Pages/Teacher/TeacherHome";
 import StudentHome from "../../Pages/Student/StudentHome";
@@ -23,10 +24,6 @@ import FinishingCourseModal from "../Modals/FinishingCourseModal";
 import RequestAcceptModal from "../Modals/RequestAcceptModal";
 import RateCourse from "../Modals/RateModal";
 // END :: MODALS
-
-const notRated = (notRatedMutation: any) => {
-    notRatedMutation.mutate();
-}
 
 const AppLayoutNavigation: React.FC = () => {
 
@@ -77,24 +74,6 @@ const AppLayoutNavigation: React.FC = () => {
         }
     })
 
-    const notRatedMutation = useMutation(() => personService.fetchNotRatedCourses(contextState.user.data.id), {
-        onError: (err) => {
-            console.log(err);
-        },
-        onSettled: (val: any) => {
-            if (Object.keys(val.data).length > 0) {
-                dispatch({
-                    type: ActionTypes.SET_MODAL,
-                    payload: {
-                        name: 'rate-course',
-                        status: true,
-                        data: val.data
-                    }
-                })
-            }
-        }
-    })
-
     const modalSwitch = (prop: any) => {
         switch (prop) {
             case 'finishing-course-modal':
@@ -108,11 +87,7 @@ const AppLayoutNavigation: React.FC = () => {
         }
     }
 
-    useEffect(() => {
-        if (contextState.user.data?.role === 'student') {
-            notRated(notRatedMutation);
-        }
-    }, [contextState.user.data])
+    NotRatedHook();
 
     return (
         <div className="flex w-full h-full">

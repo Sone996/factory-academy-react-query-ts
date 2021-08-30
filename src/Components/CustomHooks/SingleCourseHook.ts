@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { useMutation, useQuery } from "react-query";
+import { useQuery } from "react-query";
 import { AppContext } from "../../Context/AppProvider";
 import { courseService } from "../../Modules/CourseModule/Course.service";
 import { ActionTypes } from "../../Context/Reducers/Teacher/TeacherProvider.types";

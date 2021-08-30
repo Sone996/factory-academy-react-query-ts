@@ -35,8 +35,6 @@ const SingleCourseStudentComponent: React.FC = () => {
         studentSingleCourseMutation.mutate();
     }
 
-    console.log('single course student component')
-
     useEffect(() => {
         setForm({
             ...form,

@@ -21,8 +21,6 @@ export const ProtectedRoute: React.FC<any> = ({ component: Component, ...rest })
     //     }
     // }, [history]);
 
-    console.log('protected route')
-
     if (!contextState.user) {
         return null;
     }
