@@ -1,4 +1,5 @@
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import AppProvider from './Context/AppProvider';
 import { state, combineReducers } from './Context/Reducers';
@@ -46,6 +47,7 @@ function App() {
               <Route path="*" exact><Redirect to={{ pathname: '/login' }} /></Route>
             </Switch>
           </Router>
+          <ReactQueryDevtools initialIsOpen={false} />
         </QueryClientProvider>
         <Loader />
       </div>

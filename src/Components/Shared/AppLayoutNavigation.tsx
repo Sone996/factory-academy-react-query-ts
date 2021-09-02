@@ -87,7 +87,9 @@ const AppLayoutNavigation: React.FC = () => {
         }
     }
 
-    NotRatedHook();
+    if(contextState.user.data && contextState.user.data.role === 'student') {
+        NotRatedHook();
+    }
 
     return (
         <div className="flex w-full h-full">
