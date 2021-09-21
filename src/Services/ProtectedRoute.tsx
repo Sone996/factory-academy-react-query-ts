@@ -6,30 +6,28 @@ import { AppContext } from "../Context/AppProvider";
 //import { authService } from "../Modules/AuthModule/Auth.service";
 import { useFetchActiveUser } from "./Router.service";
 
+export const ProtectedRoute: React.FC<any> = ({
+  component: Component,
+  ...rest
+}) => {
+  //const history = useHistory();
 
-export const ProtectedRoute: React.FC<any> = ({ component: Component, ...rest }) => {
-    //const history = useHistory();
-    
-    const [contextState] = useContext(AppContext);
+  const [contextState] = useContext(AppContext);
 
-    useFetchActiveUser();
+  useFetchActiveUser();
 
-    // useEffect(() => {
-    //     if (!authService.isLogged()) {
-    //         console.log('jel sam ovde?')
-    //         history.push('/login');
-    //     }
-    // }, [history]);
+  // useEffect(() => {
+  //     if (!authService.isLogged()) {
+  //         console.log('jel sam ovde?')
+  //         history.push('/login');
+  //     }
+  // }, [history]);
 
-    if (!contextState.user) {
-        return null;
-    }
+  if (!contextState.user) {
+    return null;
+  }
 
-    return (
-        <Route {...rest} render={props => (
-            <Component {...props} />
-        )} />
-    );
-}
+  return <Route {...rest} render={(props) => <Component {...props} />} />;
+};
 
 export default memo(ProtectedRoute);

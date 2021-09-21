@@ -7,68 +7,78 @@ import SimpleTable from "../../Components/Shared/SimpleTable";
 import { ActionTypes } from "../../Context/Reducers/App/AppProvider.types";
 
 const StudentAplications: React.FC = () => {
+  const [contextState, dispatch] = useContext(AppContext);
 
-    const [contextState, dispatch] = useContext(AppContext);
+  const [model, setModel] = useState([]);
+  const titles = ["Student Id", "Course Id", "Accept"];
 
-    const [model, setModel] = useState([]);
-    // const [aplications, setAplications] = useState([]);
-    const titles = ['Student Id', 'COurse Id', 'Accept'];
+  const getActive = () => {
+    setModel(contextState.activeAplications);
+  };
 
-    const getActive = () => {
-        setModel(contextState.activeAplications);
+  const getInactive = () => {
+    setModel(contextState.inactiveAplications);
+  };
+
+  const singleView = (item: any) => {
+    if (item.accepted === true) {
+      dispatch({
+        type: ActionTypes.SET_MODAL,
+        payload: {
+          name: "finishing-course-modal",
+          status: true,
+          data: item,
+        },
+      });
+    } else {
+      dispatch({
+        type: ActionTypes.SET_MODAL,
+        payload: {
+          name: "requrest-accept-modal",
+          status: true,
+          data: item,
+        },
+      });
     }
+  };
 
-    const getInactive = () => {
-        setModel(contextState.inactiveAplications);
-    }
+  const studentAplications = StudentAplicationsHook();
 
-    const singleView = (item: any) => {
-        if (item.accepted === true) {
-            dispatch({
-                type: ActionTypes.SET_MODAL,
-                payload: {
-                    name: 'finishing-course-modal',
-                    status: true,
-                    data: item
-                }
-            })
-        } else {
-            dispatch({
-                type: ActionTypes.SET_MODAL,
-                payload: {
-                    name: 'requrest-accept-modal',
-                    status: true,
-                    data: item
-                }
-            })
-        }
-    }
+  console.log(studentAplications);
 
-    StudentAplicationsHook();
+  return (
+    <div className="student-aplications flex-col flex w-full">
+      <div className="flex border-b py-4 px-4 w-full text-xl font-bold">
+        <span>Students</span>
+      </div>
+      <div className="flex w-full mt-4">
+        <span className="button bg-darkGreen ml-4" onClick={getActive}>
+          Active
+        </span>
+        <span className="button bg-darkGreen ml-4" onClick={getInactive}>
+          Inactive
+        </span>
+      </div>
 
-    return (
-        <div className="student-aplications flex-col flex w-full">
-            <div className="flex border-b py-4 px-4 w-full text-xl font-bold">
-                <span>Students</span>
-            </div>
-            <div className="flex w-full mt-4">
-                <span className="button bg-darkGreen ml-4" onClick={getActive}>Active</span>
-                <span className="button bg-darkGreen ml-4" onClick={getInactive}>Inactive</span>
-            </div>
-
-            <div className="flex flex-col justify-center h-full p-16">
-                <div className="relative h-full w-full">
-                    <Scroll>
-                        <SimpleTable singleView={singleView} model={model} titles={titles}></SimpleTable>
-                    </Scroll>
-                </div>
-            </div>
-
-            {/* <div className="flex w-full justify-center mt-16">
-		 	<simple-table @singleView="singleView" :model='model' :titles='titles'></simple-table>
-		 </div> */}
+      <div className="flex flex-col justify-center h-full p-16">
+        <div className="relative h-full w-full">
+          {studentAplications.isLoading ? (
+            <div>loading</div>
+          ) : studentAplications.isError ? (
+            <div>{studentAplications.error.message}</div>
+          ) : (
+            <Scroll>
+              <SimpleTable
+                singleView={singleView}
+                model={model}
+                titles={titles}
+              ></SimpleTable>
+            </Scroll>
+          )}
         </div>
-    );
-}
+      </div>
+    </div>
+  );
+};
 
 export default StudentAplications;

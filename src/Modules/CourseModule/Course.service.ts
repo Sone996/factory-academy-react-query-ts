@@ -2,41 +2,41 @@ import { courseRepo } from "./Course.repo";
 import omit from "lodash/omit";
 
 class CourseService {
-    studentsOnCourse(data: any) {
-        return courseRepo.studentsOnCourse(data);
-    }
+  studentsOnCourse(data: any) {
+    return courseRepo.studentsOnCourse(data);
+  }
 
-    buyCourse(data: any) {
-        return courseRepo.buyCourse({
-            id: data.id,
-            data: omit(data, ['id'])
-        });
-    }
+  buyCourse(data: any) {
+    return courseRepo.buyCourse({
+      id: data.id,
+      data: omit(data, ["id"]),
+    });
+  }
 
-    createCourse(data: any) {
-        return courseRepo.createCourse(data);
-    }
-    
-    fetchSingleCours(data: any) {
-        return courseRepo.fetchSingleCours(data);
-    }
+  createCourse(data: any) {
+    return courseRepo.createCourse(data);
+  }
 
-    fetchAllCourses() {
-        return courseRepo.fetchAllCourses();
-    }
+  fetchSingleCours(data: any) {
+    return courseRepo.fetchSingleCours(data);
+  }
 
-    // // fetchMyCourses(id) {
-    // //     return adminRepo.fetchMyCourses(id);
-    // // }
+  fetchAllCourses() {
+    return courseRepo.fetchAllCourses();
+  }
 
-    completeCourse(data: any) {
-        return courseRepo.completeCourse({
-            courseId: data.courseId,
-            teacherId: data.teacherId,
-            userId: data.userId,
-            data: omit(data, ['courseId', 'teacherId', 'userId'])
-        });
-    }
+  // // fetchMyCourses(id) {
+  // //     return adminRepo.fetchMyCourses(id);
+  // // }
+
+  completeCourse(data: any) {
+    return courseRepo.completeCourse({
+      courseId: data.courseId,
+      teacherId: data.teacherId,
+      userId: data.userId,
+      data: omit(data, ["courseId", "teacherId", "userId"]),
+    });
+  }
 }
 
 export const courseService = new CourseService();

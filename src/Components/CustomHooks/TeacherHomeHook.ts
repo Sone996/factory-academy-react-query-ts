@@ -1,44 +1,37 @@
-import { useContext } from "react";
-import { useQuery } from "react-query";
-import { AppContext } from "../../Context/AppProvider";
+import { useQuery, useQueryClient } from "react-query";
 import { personService } from "../../Modules/PersonModule/Person.service";
-import { ActionTypes } from "../../Context/Reducers/Teacher/TeacherProvider.types";
 import { notificationMsg } from "../../Services/BaseService";
 import { errorMsg } from "../../Services/MessageDisplayHandler";
 
 const TeacherHomeHook = () => {
+  const loggedUser: any = useQueryClient().getQueryData("activeUser");
 
-    const [contextState, dispatch] = useContext(AppContext);
+  const fetchCourses = async () => {
+    const res = await personService.fetchMyCourses(loggedUser.id);
+    return res.data;
+  };
 
-    const fetchCourses = async () => {
-        const res = await personService.fetchMyCourses(contextState.user.data.id);
-        return res;
-    }
+  const parseMyCourses = (data: any) => {
+    let myCourses = data;
+    myCourses.forEach((course: object, i: number) => {
+      myCourses[i] = {
+        id: myCourses[i].id,
+        name: myCourses[i].name,
+        average_mark: myCourses[i].average_mark,
+        price: myCourses[i].price,
+      };
+    });
+    return myCourses;
+  };
 
-    const parseMyCourses = (data: any) => {
-        let myCourses = data.data;
-        myCourses.forEach((course: object, i: number) => {
-            myCourses[i] = {
-                id: myCourses[i].id,
-                name: myCourses[i].name,
-                average_mark: myCourses[i].average_mark,
-                price: myCourses[i].price
-            }
-        })
-        dispatch({
-            type: ActionTypes.SET_MY_COURSES,
-            payload: myCourses
-        })
-    }
-
-    return useQuery('teacher', fetchCourses, {
-        onError: (err: any) => {
-            errorMsg(notificationMsg(err, null));
-        },
-        onSettled: (val: any) => {
-            parseMyCourses(val);
-        }
-    })
-}
+  return useQuery("teacherMyCourses", fetchCourses, {
+    onError: (err: any) => {
+      errorMsg(notificationMsg(err, null));
+    },
+    onSettled: (val: any) => {
+      parseMyCourses(val);
+    },
+  });
+};
 
 export default TeacherHomeHook;

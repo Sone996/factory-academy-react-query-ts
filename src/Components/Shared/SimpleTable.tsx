@@ -10,11 +10,14 @@ const modelCol = (model: Array<{}>, setColumn: any) => {
       counter++;
     }
   }
-  setColumn(colName)
-}
+  setColumn(colName);
+};
 
-const SimpleTable:React.FC<{titles: any, model: any, singleView?: any}> = ({ titles, model, singleView }) => {
-
+const SimpleTable: React.FC<{ titles: any; model: any; singleView?: any }> = ({
+  titles,
+  model,
+  singleView,
+}) => {
   const [column, setColumn] = useState([]);
 
   // const modelCol = () => {
@@ -31,10 +34,10 @@ const SimpleTable:React.FC<{titles: any, model: any, singleView?: any}> = ({ tit
   // }
 
   useEffect(() => {
-    if(model.length > 0) {
+    if (model.length > 0) {
       modelCol(model, setColumn);
     }
-  }, [model])
+  }, [model]);
 
   return (
     <div className="flex flex-col">
@@ -44,28 +47,40 @@ const SimpleTable:React.FC<{titles: any, model: any, singleView?: any}> = ({ tit
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
                 <tr>
-                  {
-                    titles.map((item: string, index: number) => (
-                      <th scope="col" key={index} className="px-6 py-3 text-left text-xs text-center font-medium text-gray-500 uppercase tracking-wider">{item}</th>
-                    ))
-                  }
+                  {titles.map((item: string, index: number) => (
+                    <th
+                      scope="col"
+                      key={index}
+                      className="px-6 py-3 text-left text-xs text-center font-medium text-gray-500 uppercase tracking-wider"
+                    >
+                      {item}
+                    </th>
+                  ))}
                 </tr>
               </thead>
               <tbody>
-                {
-                  model.map((item: {}, index: number) => (
-                    <tr
-                      key={index}
-                      onClick={() => singleView(item)}
-                      className={index % 2 === 0 ? 'bg-gray-100 hover:bg-darkGreen' : 'bg-gray-300 hover:bg-darkGreen'}>
-                      {
-                        column.map((col, index) => (
-                          <td key={index} className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 text-center">{ typeof(item[column[index]]) === 'boolean' ? item[column[index]]+'' : item[column[index]]}</td>
-                        ))
-                      }
-                    </tr>
-                  ))
-                }
+                {model.map((item: {}, index: number) => (
+                  <tr
+                    key={index}
+                    onClick={() => singleView(item)}
+                    className={
+                      index % 2 === 0
+                        ? "bg-gray-100 hover:bg-darkGreen"
+                        : "bg-gray-300 hover:bg-darkGreen"
+                    }
+                  >
+                    {column.map((col, index) => (
+                      <td
+                        key={index}
+                        className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 text-center"
+                      >
+                        {typeof item[column[index]] === "boolean"
+                          ? item[column[index]] + ""
+                          : item[column[index]]}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
@@ -73,6 +88,6 @@ const SimpleTable:React.FC<{titles: any, model: any, singleView?: any}> = ({ tit
       </div>
     </div>
   );
-}
+};
 
 export default SimpleTable;

@@ -7,38 +7,37 @@ import { notificationMsg } from "../../Services/BaseService";
 import { errorMsg } from "../../Services/MessageDisplayHandler";
 
 const StudentCompletedCoursesHook = () => {
+  const [contextState, dispatch] = useContext(AppContext);
 
-    const [contextState, dispatch] = useContext(AppContext);
+  const parseCompletedCourses = (data: any) => {
+    let completedCourses = data.data;
+    completedCourses.forEach((course: {}, i: number) => {
+      completedCourses[i] = {
+        course_id: completedCourses[i].course.id,
+        course_name: completedCourses[i].course.name,
+        mark: completedCourses[i].mark,
+      };
+    });
+    dispatch({
+      type: ActionTypes.SET_COMPLETED_COURSES,
+      payload: completedCourses,
+    });
+  };
 
-    const parseCompletedCourses = (data: any) => {
-        let completedCourses = data.data;
-        completedCourses.forEach((course: {}, i: number) => {
-            completedCourses[i] = {
-                course_id: completedCourses[i].course.id,
-                course_name: completedCourses[i].course.name,
-                mark: completedCourses[i].mark,
-            }
-        })
-        dispatch({
-            type: ActionTypes.SET_COMPLETED_COURSES,
-            payload: completedCourses
-        })
-    }
+  const fetchCompletedCourese = async () => {
+    let id = contextState.user.data.id;
+    const res = await personService.fetchCompletedCourses(id);
+    return res;
+  };
 
-    const fetchCompletedCourese = async () => {
-        let id = contextState.user.data.id;
-        const res = await personService.fetchCompletedCourses(id);
-        return res;
-    }
-
-    return useQuery('completedCourses', fetchCompletedCourese, {
-        onError: (err: any) => {
-            errorMsg(notificationMsg(err, null));
-        },
-        onSettled: (val: any) => {
-            parseCompletedCourses(val);
-        }
-    })
-}
+  return useQuery("completedCourses", fetchCompletedCourese, {
+    onError: (err: any) => {
+      errorMsg(notificationMsg(err, null));
+    },
+    onSettled: (val: any) => {
+      parseCompletedCourses(val);
+    },
+  });
+};
 
 export default StudentCompletedCoursesHook;
