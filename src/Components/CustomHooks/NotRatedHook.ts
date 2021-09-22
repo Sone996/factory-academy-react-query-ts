@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import { AppContext } from "../../Context/AppProvider";
 import { ActionTypes } from "../../Context/Reducers/App/AppProvider.types";
 import { errorMsg } from "../../Services/MessageDisplayHandler";
@@ -7,11 +7,13 @@ import { notificationMsg } from "../../Services/BaseService";
 import { personService } from "../../Modules/PersonModule/Person.service";
 
 const NotRatedHook = () => {
+  // eslint-disable-next-line
   const [contextState, dispatch] = useContext(AppContext);
+  const loggedUser: any = useQueryClient().getQueryData("activeUser");
 
   const fetchNotRated = async () => {
     const res = await personService.fetchNotRatedCourses(
-      contextState.user.data.id
+      loggedUser.id
     );
     return res;
   };

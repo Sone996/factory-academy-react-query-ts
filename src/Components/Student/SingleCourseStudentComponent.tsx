@@ -1,6 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { useMutation } from "react-query";
-import { AppContext } from "../../Context/AppProvider";
 import { courseService } from "../../Modules/CourseModule/Course.service";
 import { notificationMsg } from "../../Services/BaseService";
 import { successMsg, errorMsg } from "../../Services/MessageDisplayHandler";
@@ -10,8 +9,7 @@ const formInterface = {
   comment: "",
 };
 
-const SingleCourseStudentComponent: React.FC = () => {
-  const [contextState] = useContext(AppContext);
+const SingleCourseStudentComponent: FC<{data: any}> = ({ data }) => {
   const [form, setForm] = useState(formInterface);
 
   const commentHandler = (event: any) => {
@@ -40,7 +38,7 @@ const SingleCourseStudentComponent: React.FC = () => {
   useEffect(() => {
     setForm({
       ...form,
-      id: contextState.singleCourse.id,
+      id: data.id,
     });
   }, []);
 

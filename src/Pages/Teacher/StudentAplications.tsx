@@ -1,23 +1,42 @@
 import React, { useContext, useState } from "react";
 import { AppContext } from "../../Context/AppProvider";
 import StudentAplicationsHook from "../../Components/CustomHooks/StudentAplicationsHook";
-
 import Scroll from "../../Components/Shared/Scroll";
 import SimpleTable from "../../Components/Shared/SimpleTable";
 import { ActionTypes } from "../../Context/Reducers/App/AppProvider.types";
 
-const StudentAplications: React.FC = () => {
-  const [contextState, dispatch] = useContext(AppContext);
+const parseAplication = (val: any) => {
+  let result: any = [];
+  val.forEach((aplication: {}, i: number) => {
+    let ap = {
+      stident_id: val[i].student_id,
+      course_id: val[i].course_id,
+      accepted: val[i].accepted,
+    };
+    result.push(ap);
+  });
+  return result;
+};
 
+const StudentAplications: React.FC = () => {
+  // eslint-disable-next-line
+  const [contextState, dispatch] = useContext(AppContext);
   const [model, setModel] = useState([]);
   const titles = ["Student Id", "Course Id", "Accept"];
+  const studentAplications: any = StudentAplicationsHook();
 
   const getActive = () => {
-    setModel(contextState.activeAplications);
+    let active = studentAplications.data.data;
+    active = active.filter((ac: { accepted: boolean }) => ac.accepted === true);
+    setModel(parseAplication(active));
   };
 
   const getInactive = () => {
-    setModel(contextState.inactiveAplications);
+    let inactive = studentAplications.data.data;
+    inactive = inactive.filter(
+      (inac: { accepted: boolean }) => inac.accepted === false
+    );
+    setModel(parseAplication(inactive));
   };
 
   const singleView = (item: any) => {
@@ -41,10 +60,6 @@ const StudentAplications: React.FC = () => {
       });
     }
   };
-
-  const studentAplications = StudentAplicationsHook();
-
-  console.log(studentAplications);
 
   return (
     <div className="student-aplications flex-col flex w-full">

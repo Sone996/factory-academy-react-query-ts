@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import { AppContext } from "../../Context/AppProvider";
 import { ActionTypes } from "../../Context/Reducers/Student/StudentProvider.types";
 import { personService } from "../../Modules/PersonModule/Person.service";
@@ -8,6 +8,7 @@ import { errorMsg } from "../../Services/MessageDisplayHandler";
 
 const StudentCompletedCoursesHook = () => {
   const [contextState, dispatch] = useContext(AppContext);
+  const loggedUser: any = useQueryClient().getQueryData("activeUser");
 
   const parseCompletedCourses = (data: any) => {
     let completedCourses = data.data;
@@ -25,7 +26,7 @@ const StudentCompletedCoursesHook = () => {
   };
 
   const fetchCompletedCourese = async () => {
-    let id = contextState.user.data.id;
+    let id = loggedUser.id;
     const res = await personService.fetchCompletedCourses(id);
     return res;
   };

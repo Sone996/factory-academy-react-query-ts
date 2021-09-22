@@ -1,5 +1,5 @@
 import "../../App.scss";
-import React, { useContext, useEffect, useState } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 import { notificationMsg } from "../../Services/BaseService";
 import { successMsg, errorMsg } from "../../Services/MessageDisplayHandler";
 import { AppContext } from "../../Context/AppProvider";
@@ -16,7 +16,7 @@ const sendData = (requestAcceptMutation: any) => {
   requestAcceptMutation.mutate();
 };
 
-const RequestAcceptModal: React.FC = () => {
+const RequestAcceptModal: FC = () => {
   const [contextState, dispatch] = useContext(AppContext);
 
   const [form, setForm] = useState(formInterface);
