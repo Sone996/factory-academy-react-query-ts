@@ -62,24 +62,12 @@ const RegisterComponent: FC<{ toggle: () => void }> = ({ toggle }) => {
           type: ActionTypes.SET_LOADER,
           payload: false,
         });
-        console.log(response.data);
         useLogin.mutate(loginForm);
-        // dispatch({
-        //   type: ActionTypes.SET_USER,
-        //   payload: response.data,
-        // });
-        // loginMutation.mutate(loginForm);
       },
     }
   );
 
   const registerAction = () => {
-    // setLoginForm({
-    //     ...loginForm,
-    //     email: registerForm.email,
-    //     password: registerForm.password
-    // })
-    console.log(registerForm);
     registerMutation.mutate(registerForm);
   };
 

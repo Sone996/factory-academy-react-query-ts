@@ -1,14 +1,9 @@
-import { useContext } from "react";
 import { useQuery } from "react-query";
-import { AppContext } from "../../Context/AppProvider";
 import { personService } from "../../Modules/PersonModule/Person.service";
-import { ActionTypes } from "../../Context/Reducers/Student/StudentProvider.types";
 import { notificationMsg } from "../../Services/BaseService";
 import { errorMsg } from "../../Services/MessageDisplayHandler";
 
 const StudentHomeHook = () => {
-  // eslint-disable-next-line
-  const [contextState, dispatch] = useContext(AppContext);
 
   const parsenotCompletedCourses = (data: any) => {
     let notCompletedCourses = data.data;
@@ -21,10 +16,7 @@ const StudentHomeHook = () => {
         price: notCompletedCourses[i].price,
       };
     });
-    dispatch({
-      type: ActionTypes.SET_NOT_COMPLETED_COURSES,
-      payload: notCompletedCourses,
-    });
+    return notCompletedCourses;
   };
 
   const fetchCourese = async () => {
@@ -32,7 +24,7 @@ const StudentHomeHook = () => {
     return res;
   };
 
-  return useQuery("studentHome", fetchCourese, {
+  return useQuery("notCompletedCourses", fetchCourese, {
     onError: (err: any) => {
       errorMsg(notificationMsg(err, null));
     },

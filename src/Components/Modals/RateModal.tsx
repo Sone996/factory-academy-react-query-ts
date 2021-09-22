@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { AppContext } from "../../Context/AppProvider";
 import { ActionTypes } from "../../Context/Reducers/App/AppProvider.types";
 import { personService } from "../../Modules/PersonModule/Person.service";
@@ -11,8 +11,10 @@ const formInterface = {
 };
 
 const RateCourse: React.FC = () => {
+  // eslint-disable-next-line
   const [contextState, dispatch] = useContext(AppContext);
   const [form, setForm] = useState(formInterface);
+  const loggedUser: any = useQueryClient().getQueryData("activeUser");
 
   const inputHandler = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -55,9 +57,9 @@ const RateCourse: React.FC = () => {
   useEffect(() => {
     setForm({
       ...form,
-      personId: contextState.user.data.id,
+      personId: loggedUser.id,
     });
-  }, [contextState.modal.data.id]);
+  }, [loggedUser.id]);
 
   return (
     <div

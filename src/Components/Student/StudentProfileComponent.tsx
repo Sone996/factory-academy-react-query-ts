@@ -10,8 +10,8 @@ const StudentProfileComponent: React.FC = () => {
   const [contextState] = useContext(AppContext);
   const titles = ["Id", "Course Name", "Mark"];
 
-  StudentCompletedCoursesHook();
-
+  const completedCourses = StudentCompletedCoursesHook();
+  
   return (
     <div className="user-profile-component flex flex-col h-full">
       <div className="flex flex-col text-xl h-full pt-6">
@@ -20,12 +20,18 @@ const StudentProfileComponent: React.FC = () => {
         </div>
         <div className="flex flex-col justify-center h-full p-16">
           <div className="relative h-full w-full">
-            <Scroll>
-              <SimpleTable
-                model={contextState.completedCourses}
-                titles={titles}
-              />
-            </Scroll>
+            {completedCourses.isLoading ? (
+              <div>loading</div>
+            ) : completedCourses.isError ? (
+              <div>{completedCourses.error.message}</div>
+            ) : (
+              <Scroll>
+                <SimpleTable
+                  model={completedCourses.data.data}
+                  titles={titles}
+                />
+              </Scroll>
+            )}
           </div>
         </div>
       </div>

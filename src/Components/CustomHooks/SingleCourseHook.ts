@@ -20,10 +20,6 @@ const SingleCourseHook = (id: number | string) => {
       errorMsg(notificationMsg(err, null));
     },
     onSettled: (val: any) => {
-      dispatch({
-        type: ActionTypes.SET_SINGLE_COURSE,
-        payload: val.data,
-      });
     },
   });
 };

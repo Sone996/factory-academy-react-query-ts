@@ -19,10 +19,7 @@ const StudentCompletedCoursesHook = () => {
         mark: completedCourses[i].mark,
       };
     });
-    dispatch({
-      type: ActionTypes.SET_COMPLETED_COURSES,
-      payload: completedCourses,
-    });
+    return completedCourses;
   };
 
   const fetchCompletedCourese = async () => {

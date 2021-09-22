@@ -18,7 +18,6 @@ const MemberListHook = () => {
 
   const fetchMyStudents = async () => {
     const res = await personService.fetchMyStudents();
-    console.log(res);
     return res;
   };
 
@@ -27,6 +26,7 @@ const MemberListHook = () => {
       errorMsg(notificationMsg(err, null));
     },
     onSettled: (val: any) => {
+      console.log(val)
       parseMyStudents(val);
     },
   });

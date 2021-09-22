@@ -20,8 +20,6 @@ const SingleCourse: FC = () => {
   if (loggedUser.role === "teacher") {
     const studentsOnCourse: any = StudentsOnCourseHook(id);
 
-    console.log(studentsOnCourse)
-
     return (
       <div className="course flex w-full">
         {singleCourse.isLoading ? (

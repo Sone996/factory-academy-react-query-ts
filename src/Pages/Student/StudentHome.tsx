@@ -15,7 +15,7 @@ const StudentHome: React.FC = () => {
     history.push({ pathname: `/single-course/${item.course_id}` });
   };
 
-  StudentHomeHook();
+  const notCompletedCourses = StudentHomeHook();
   NotRatedHook();
 
   return (
@@ -25,13 +25,19 @@ const StudentHome: React.FC = () => {
       </div>
       <div className="flex w-full h-full py-16 pl-5">
         <div className="relative h-full w-3/4">
-          <Scroll>
-            <SimpleTable
-              singleView={singleView}
-              model={contextState.notCompletedCourses}
-              titles={titles}
-            />
-          </Scroll>
+          {notCompletedCourses.isLoading ? (
+            <div>loading</div>
+          ) : notCompletedCourses.isError ? (
+            <div>{notCompletedCourses.error.message}</div>
+          ) : (
+            <Scroll>
+              <SimpleTable
+                singleView={singleView}
+                model={notCompletedCourses.data.data}
+                titles={titles}
+              />
+            </Scroll>
+          )}
         </div>
       </div>
     </div>

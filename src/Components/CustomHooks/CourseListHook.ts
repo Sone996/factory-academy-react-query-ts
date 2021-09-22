@@ -1,14 +1,9 @@
-import { useContext } from "react";
 import { useQuery } from "react-query";
-import { AppContext } from "../../Context/AppProvider";
 import { courseService } from "../../Modules/CourseModule/Course.service";
-import { ActionTypes } from "../../Context/Reducers/App/AppProvider.types";
 import { notificationMsg } from "../../Services/BaseService";
 import { errorMsg } from "../../Services/MessageDisplayHandler";
 
 const CourseListHook = () => {
-  // eslint-disable-next-line
-  const [contextState, dispatch] = useContext(AppContext);
 
   const parseAllCourses = (data: any) => {
     let allCouresList = data.data;
@@ -20,10 +15,7 @@ const CourseListHook = () => {
         price: allCouresList[i].price,
       };
     });
-    dispatch({
-      type: ActionTypes.SET_ALL_COURSES,
-      payload: allCouresList,
-    });
+    return allCouresList;
   };
 
   const fetchCourses = async () => {
