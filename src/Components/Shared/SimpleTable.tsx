@@ -20,19 +20,6 @@ const SimpleTable: React.FC<{ titles: any; model: any; singleView?: any }> = ({
 }) => {
   const [column, setColumn] = useState([]);
 
-  // const modelCol = () => {
-  //   let len = Object.keys(model[0]).length;
-  //   let counter = 0;
-  //   let colName: any = [];
-  //   for (const key in model[0]) {
-  //     if (counter <= len) {
-  //       colName[counter] = key;
-  //       counter++;
-  //     }
-  //   }
-  //   setColumn(colName)
-  // }
-
   useEffect(() => {
     if (model.length > 0) {
       modelCol(model, setColumn);

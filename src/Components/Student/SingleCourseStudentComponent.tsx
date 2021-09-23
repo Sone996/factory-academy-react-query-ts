@@ -3,16 +3,24 @@ import { useMutation } from "react-query";
 import { courseService } from "../../Modules/CourseModule/Course.service";
 import { notificationMsg } from "../../Services/BaseService";
 import { successMsg, errorMsg } from "../../Services/MessageDisplayHandler";
+import { ISingleCourse } from "../../Services/Interfaces";
 
-const formInterface = {
-  id: null,
+const defaultForm = {
+  id: 0,
   comment: "",
 };
 
-const SingleCourseStudentComponent: FC<{data: any}> = ({ data }) => {
-  const [form, setForm] = useState(formInterface);
+const SingleCourseStudentComponent: FC<{ data: ISingleCourse }> = ({
+  data,
+}) => {
+  console.log(data);
+  const [form, setForm] = useState(defaultForm);
 
-  const commentHandler = (event: any) => {
+  const commentHandler = (
+    event:
+      | React.ChangeEvent<HTMLTextAreaElement>
+      | React.ChangeEvent<HTMLInputElement>
+  ) => {
     setForm({
       ...form,
       comment: event.target.value,

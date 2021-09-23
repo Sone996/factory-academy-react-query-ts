@@ -1,6 +1,10 @@
+import { FC } from "react";
+import { ISingleCourse } from "../../Services/Interfaces";
 import SimpleTable from "../Shared/SimpleTable";
 
-const SingleCourseComponent = ({ tableData }: any) => {
+const SingleCourseComponent: FC<{ tableData: ISingleCourse }> = ({
+  tableData,
+}) => {
   const titles = ["User Id", "User", "Course Start Date", "Complete"];
 
   return (

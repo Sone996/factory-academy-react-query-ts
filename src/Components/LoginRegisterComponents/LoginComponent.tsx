@@ -1,7 +1,8 @@
 import { FC, useState } from "react";
 import { LoginHook } from "../CustomHooks/LoginHook";
+import { ILogin } from '../../Services/Interfaces';
 
-const loginFormDefault = {
+const loginFormDefault: ILogin = {
   email: "",
   password: "",
 };
@@ -10,7 +11,7 @@ const LoginComponent: FC<{ toggle: () => void }> = ({ toggle }) => {
   const [form, setForm] = useState(loginFormDefault);
   const useLogin = LoginHook();
 
-  const inputLoginHandler = (event: any) => {
+  const inputLoginHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setForm({
       ...form,
       [event.target.name]: event.target.value,

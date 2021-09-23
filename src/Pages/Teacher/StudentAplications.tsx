@@ -9,7 +9,7 @@ const parseAplication = (val: any) => {
   let result: any = [];
   val.forEach((aplication: {}, i: number) => {
     let ap = {
-      stident_id: val[i].student_id,
+      student_id: val[i].student_id,
       course_id: val[i].course_id,
       accepted: val[i].accepted,
     };

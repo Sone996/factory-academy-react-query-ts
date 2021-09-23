@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { FC, useContext } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { Switch, Route } from "react-router-dom";
 import { useHistory } from "react-router-dom";
@@ -7,6 +7,7 @@ import { TOKEN_LS_NAME } from "../../Constants/Constants";
 import { AppContext } from "../../Context/AppProvider";
 import { authService } from "../../Modules/AuthModule/Auth.service";
 import { personService } from "../../Modules/PersonModule/Person.service";
+import { ILoggedUser } from "../../Services/Interfaces";
 // PAGES
 import TeacherHome from "../../Pages/Teacher/TeacherHome";
 import StudentHome from "../../Pages/Student/StudentHome";
@@ -24,11 +25,11 @@ import RequestAcceptModal from "../Modals/RequestAcceptModal";
 import RateCourse from "../Modals/RateModal";
 // END :: MODALS
 
-const AppLayoutNavigation: React.FC = () => {
+const AppLayoutNavigation: FC = () => {
   const [contextState, dispatch] = useContext(AppContext);
-  const loggedUser: any = useQueryClient().getQueryData("activeUser");
+  const loggedUser = useQueryClient().getQueryData<ILoggedUser>("activeUser");
 
-  const history: any = useHistory();
+  const history = useHistory();
 
   const goHome = () => {
     if (loggedUser?.role === "teacher") {
@@ -39,7 +40,7 @@ const AppLayoutNavigation: React.FC = () => {
   };
   const goProfile = () => {
     personService
-      .goProfile(loggedUser.id)
+      .goProfile(loggedUser?.id)
       .then((res) => {
         dispatch({
           type: ActionTypes.SET_PROFILE_DATA,
@@ -74,7 +75,7 @@ const AppLayoutNavigation: React.FC = () => {
     },
   });
 
-  const modalSwitch = (prop: any) => {
+  const modalSwitch = (prop: string) => {
     switch (prop) {
       case "finishing-course-modal":
         return <FinishingCourseModal />;

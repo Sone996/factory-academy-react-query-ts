@@ -6,8 +6,9 @@ import { authService } from "../../Modules/AuthModule/Auth.service";
 import { notificationMsg } from "../../Services/BaseService";
 import { errorMsg } from "../../Services/MessageDisplayHandler";
 import { LoginHook } from "../CustomHooks/LoginHook";
+import { IRegister, ILogin } from '../../Services/Interfaces';
 
-const registerFormTemplate = {
+const registerFormTemplate: IRegister = {
   name: "",
   surname: "",
   email: "",
@@ -15,7 +16,7 @@ const registerFormTemplate = {
   role: "",
 };
 
-const loginFormDefault = {
+const loginFormDefault: ILogin = {
   email: "",
   password: "",
 };
@@ -27,7 +28,7 @@ const RegisterComponent: FC<{ toggle: () => void }> = ({ toggle }) => {
   const [loginForm, setLoginForm] = useState(loginFormDefault);
   const useLogin = LoginHook();
 
-  const inputRegisterHandler = (event: any) => {
+  const inputRegisterHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setRegisterForm({
       ...registerForm,
       [event.target.name]: event.target.value,

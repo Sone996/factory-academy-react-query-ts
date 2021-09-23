@@ -1,13 +1,11 @@
-import React, { useContext } from "react";
-import { AppContext } from "../../Context/AppProvider";
+import { FC } from "react";
 import StudentCompletedCoursesHook from "../CustomHooks/StudentCompletedCoursesHook";
 // COMPONETS
 import Scroll from "../Shared/Scroll";
 import SimpleTable from "../Shared/SimpleTable";
 // END :: COMPONENTS
 
-const StudentProfileComponent: React.FC = () => {
-  const [contextState] = useContext(AppContext);
+const StudentProfileComponent: FC = () => {
   const titles = ["Id", "Course Name", "Mark"];
 
   const completedCourses = StudentCompletedCoursesHook();

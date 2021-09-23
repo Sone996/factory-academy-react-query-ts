@@ -6,8 +6,10 @@ import { AppContext } from "../../Context/AppProvider";
 import { personService } from "../../Modules/PersonModule/Person.service";
 import { ActionTypes } from "../../Context/Reducers/App/AppProvider.types";
 import { useMutation } from "react-query";
+import { AxiosError, AxiosResponse } from "axios";
+import { IRequestAcceptForm } from "../../Services/Interfaces";
 
-const formInterface = {
+const defaultForm = {
   course_id: null,
   accepted: null,
 };
@@ -19,7 +21,7 @@ const sendData = (requestAcceptMutation: any) => {
 const RequestAcceptModal: FC = () => {
   const [contextState, dispatch] = useContext(AppContext);
 
-  const [form, setForm] = useState(formInterface);
+  const [form, setForm] = useState<IRequestAcceptForm>(defaultForm);
 
   const resolvingAplication = (status: any) => {
     setForm({
@@ -28,10 +30,6 @@ const RequestAcceptModal: FC = () => {
       accepted: status,
     });
   };
-
-  // const sendData = () => {
-  //     requestAcceptMutation.mutate();
-  // }
 
   const close = () => {
     dispatch({
@@ -47,11 +45,11 @@ const RequestAcceptModal: FC = () => {
   const requestAcceptMutation = useMutation(
     () => personService.resolveRequest(form),
     {
-      onError: (err: any) => {
+      onError: (err: AxiosError) => {
         errorMsg(notificationMsg(err, null));
         close();
       },
-      onSuccess: (res: any) => {
+      onSuccess: (res: AxiosResponse<any>) => {
         successMsg(notificationMsg(res, "REQUEST_ACCEPTED"));
         close();
       },

@@ -1,17 +1,16 @@
-import React, { useContext } from "react";
+import { FC } from "react";
 import { useHistory } from "react-router";
-import { AppContext } from "../../Context/AppProvider";
 import StudentHomeHook from "../../Components/CustomHooks/StudentHomeHook";
 import SimpleTable from "../../Components/Shared/SimpleTable";
 import Scroll from "../../Components/Shared/Scroll";
 import NotRatedHook from "../../Components/CustomHooks/NotRatedHook";
+import { IBasicCourseData } from "../../Services/Interfaces";
 
-const StudentHome: React.FC = () => {
-  const [contextState] = useContext(AppContext);
+const StudentHome: FC = () => {
   const titles = ["Id", "Course Name", "Teacher Name", "Average Mark", "Price"];
   const history = useHistory();
 
-  const singleView = (item: any) => {
+  const singleView = (item: IBasicCourseData) => {
     history.push({ pathname: `/single-course/${item.course_id}` });
   };
 

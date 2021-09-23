@@ -1,6 +1,6 @@
-import React from "react";
+import {FC} from "react";
 
-const TeacherProfileComponent: React.FC = () => {
+const TeacherProfileComponent: FC = () => {
   return (
     <div className="professor-profile-component">
       <div className="flex text-xl">

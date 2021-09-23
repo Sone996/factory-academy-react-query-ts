@@ -5,18 +5,14 @@ import { notificationMsg } from "../../Services/BaseService";
 import { successMsg, errorMsg } from "../../Services/MessageDisplayHandler";
 import { courseService } from "../../Modules/CourseModule/Course.service";
 import { ActionTypes } from "../../Context/Reducers/App/AppProvider.types";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
+import { IFinishCourseForm, ILoggedUser } from "../../Services/Interfaces";
 
-interface form {
-  complete: boolean;
-  courseId: string | number;
-  userId: string | number;
-  teacherId: string | number;
-}
 const FinishingCourseModal: React.FC = () => {
   const [contextState, dispatch] = useContext(AppContext);
+  const loggedUser = useQueryClient().getQueryData<ILoggedUser>("activeUser");
 
-  const [form, setForm] = useState<form>();
+  const [form, setForm] = useState<IFinishCourseForm>();
 
   const cancel = () => {
     dispatch({
@@ -52,12 +48,12 @@ const FinishingCourseModal: React.FC = () => {
       complete: true,
       courseId: contextState.modal.data.course_id,
       userId: contextState.modal.data.student_id,
-      teacherId: contextState.user.data.id,
+      teacherId: loggedUser?.id,
     });
   }, [
     contextState.modal.data.course_id,
     contextState.modal.data.student_id,
-    contextState.user.data.id,
+    loggedUser?.id,
   ]);
 
   return (

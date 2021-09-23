@@ -1,13 +1,9 @@
-import { useContext } from "react";
 import { useQuery, useQueryClient } from "react-query";
-import { AppContext } from "../../Context/AppProvider";
-import { ActionTypes } from "../../Context/Reducers/Student/StudentProvider.types";
 import { personService } from "../../Modules/PersonModule/Person.service";
 import { notificationMsg } from "../../Services/BaseService";
 import { errorMsg } from "../../Services/MessageDisplayHandler";
 
 const StudentCompletedCoursesHook = () => {
-  const [contextState, dispatch] = useContext(AppContext);
   const loggedUser: any = useQueryClient().getQueryData("activeUser");
 
   const parseCompletedCourses = (data: any) => {

@@ -2,6 +2,7 @@ import { FC } from "react";
 import { useHistory } from "react-router-dom";
 import StudentsOnCourseHook from "../../Components/CustomHooks/StudentsOnCourseHook";
 import SingleCourseHook from "../../Components/CustomHooks/SingleCourseHook";
+import { ILoggedUser } from "../../Services/Interfaces";
 // COMPONENTS
 import SingleCourseComponent from "../../Components/Teacher/SingleCourseComponent";
 import SingleCourseStudentComponent from "../../Components/Student/SingleCourseStudentComponent";
@@ -9,7 +10,7 @@ import { useQueryClient } from "react-query";
 // END :: COMPONENTS
 
 const SingleCourse: FC = () => {
-  const loggedUser: any = useQueryClient().getQueryData("activeUser");
+  const loggedUser = useQueryClient().getQueryData<ILoggedUser>("activeUser");
   const history = useHistory();
 
   let x = history.location.pathname.split("/");
@@ -17,7 +18,7 @@ const SingleCourse: FC = () => {
 
   const singleCourse = SingleCourseHook(id);
 
-  if (loggedUser.role === "teacher") {
+  if (loggedUser?.role === "teacher") {
     const studentsOnCourse: any = StudentsOnCourseHook(id);
 
     return (
