@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState, FC } from "react";
 
 const modelCol = (model: Array<{}>, setColumn: any) => {
   let len = Object.keys(model[0]).length;
@@ -13,7 +13,7 @@ const modelCol = (model: Array<{}>, setColumn: any) => {
   setColumn(colName);
 };
 
-const SimpleTable: React.FC<{ titles: any; model: any; singleView?: any }> = ({
+const SimpleTable: FC<{ titles: any; model: any; singleView?: any }> = ({
   titles,
   model,
   singleView,

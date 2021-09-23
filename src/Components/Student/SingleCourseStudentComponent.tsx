@@ -1,20 +1,17 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import { useMutation } from "react-query";
 import { courseService } from "../../Modules/CourseModule/Course.service";
 import { notificationMsg } from "../../Services/BaseService";
 import { successMsg, errorMsg } from "../../Services/MessageDisplayHandler";
 import { ISingleCourse } from "../../Services/Interfaces";
 
-const defaultForm = {
-  id: 0,
-  comment: "",
-};
-
 const SingleCourseStudentComponent: FC<{ data: ISingleCourse }> = ({
   data,
 }) => {
-  console.log(data);
-  const [form, setForm] = useState(defaultForm);
+  const [form, setForm] = useState({
+    id: data.id,
+    comment: "",
+  });
 
   const commentHandler = (
     event:
@@ -42,13 +39,6 @@ const SingleCourseStudentComponent: FC<{ data: ISingleCourse }> = ({
   const buyCourse = () => {
     studentSingleCourseMutation.mutate();
   };
-
-  useEffect(() => {
-    setForm({
-      ...form,
-      id: data.id,
-    });
-  }, []);
 
   return (
     <div className="single-course-component flex flex-col text-xl w-full">

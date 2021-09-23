@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import { useContext, useState, FC } from "react";
 import { AppContext } from "../../Context/AppProvider";
 import StudentAplicationsHook from "../../Components/CustomHooks/StudentAplicationsHook";
 import Scroll from "../../Components/Shared/Scroll";
@@ -18,7 +18,7 @@ const parseAplication = (val: any) => {
   return result;
 };
 
-const StudentAplications: React.FC = () => {
+const StudentAplications: FC = () => {
   // eslint-disable-next-line
   const [contextState, dispatch] = useContext(AppContext);
   const [model, setModel] = useState([]);

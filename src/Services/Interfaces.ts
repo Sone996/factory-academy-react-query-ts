@@ -1,6 +1,3 @@
-//React.ChangeEvent<HTMLTextAreaElement>
-//React.ChangeEvent<HTMLInputElement>
-
 export interface ILogin {
   email: string;
   password: string;

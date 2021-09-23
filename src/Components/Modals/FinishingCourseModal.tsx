@@ -1,5 +1,5 @@
 import "../../App";
-import React, { useState, useContext, useEffect } from "react";
+import { useContext, FC } from "react";
 import { AppContext } from "../../Context/AppProvider";
 import { notificationMsg } from "../../Services/BaseService";
 import { successMsg, errorMsg } from "../../Services/MessageDisplayHandler";
@@ -8,11 +8,16 @@ import { ActionTypes } from "../../Context/Reducers/App/AppProvider.types";
 import { useMutation, useQueryClient } from "react-query";
 import { IFinishCourseForm, ILoggedUser } from "../../Services/Interfaces";
 
-const FinishingCourseModal: React.FC = () => {
+const FinishingCourseModal: FC = () => {
   const [contextState, dispatch] = useContext(AppContext);
   const loggedUser = useQueryClient().getQueryData<ILoggedUser>("activeUser");
 
-  const [form, setForm] = useState<IFinishCourseForm>();
+  const form: IFinishCourseForm = {
+    complete: true,
+    courseId: contextState.modal.data.course_id,
+    userId: contextState.modal.data.student_id,
+    teacherId: loggedUser?.id,
+  };
 
   const cancel = () => {
     dispatch({
@@ -43,18 +48,18 @@ const FinishingCourseModal: React.FC = () => {
     }
   );
 
-  useEffect(() => {
-    setForm({
-      complete: true,
-      courseId: contextState.modal.data.course_id,
-      userId: contextState.modal.data.student_id,
-      teacherId: loggedUser?.id,
-    });
-  }, [
-    contextState.modal.data.course_id,
-    contextState.modal.data.student_id,
-    loggedUser?.id,
-  ]);
+  // useEffect(() => {
+  //   setForm({
+  //     complete: true,
+  //     courseId: contextState.modal.data.course_id,
+  //     userId: contextState.modal.data.student_id,
+  //     teacherId: loggedUser?.id,
+  //   });
+  // }, [
+  //   contextState.modal.data.course_id,
+  //   contextState.modal.data.student_id,
+  //   loggedUser?.id,
+  // ]);
 
   return (
     <div
