@@ -3,7 +3,7 @@ import axios from "axios";
 
 const axiosInstance = axios.create({
   // baseURL: process.env.VUE_APP_API_PATH
-  baseURL: "http://192.168.1.91:5000/",
+  baseURL: "http://192.168.1.139:5000/",
 });
 
 axiosInstance.interceptors.request.use((config) => {

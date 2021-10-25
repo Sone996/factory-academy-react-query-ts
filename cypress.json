@@ -1,0 +1,18 @@
+{
+    "baseUrl": "http://localhost:3000",
+    "viewportHeight": 820,
+    "viewportWidth": 1280,
+    "retries": {
+      "runMode": 2,
+      "openMode": 1
+    },
+    "env": {
+      "apiUrl": "http://192.168.1.139:5000",
+      "coverage": false,
+      "codeCoverage": {
+        "url": "http://192.168.1.139:5000/__coverage__"
+      }
+    },
+    "experimentalStudio": true
+  }
+  

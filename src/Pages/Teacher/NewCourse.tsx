@@ -64,23 +64,25 @@ const NewCourse: React.FC = () => {
       </div>
       <div className="flex flex-col w-1/2 px-16">
         <div className="flex flex-col mt-8 w-1/2">
-          <span>Name</span>
+          <label>Name</label>
           <input
             className="input"
             type="text"
             autoComplete="off"
             value={form?.name}
             name="name"
+            placeholder="Name"
             onChange={inputHandler}
           />
         </div>
         <div className="flex flex-col mt-8 w-1/2">
-          <span>Price</span>
+          <label>Price</label>
           <input
             className="input"
             type="number"
             autoComplete="off"
             value={form?.price}
+            placeholder="Price"
             name="price"
             onChange={inputHandler}
           />

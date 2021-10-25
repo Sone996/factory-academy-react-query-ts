@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
 import { LoginHook } from "../CustomHooks/LoginHook";
-import { ILogin } from '../../Services/Interfaces';
+import { ILogin } from "../../Services/Interfaces";
 
 const loginFormDefault: ILogin = {
   email: "",
@@ -34,6 +34,7 @@ const LoginComponent: FC<{ toggle: () => void }> = ({ toggle }) => {
           type="text"
           name="email"
           value={form.email}
+          data-test="loginEmail"
           onChange={inputLoginHandler}
         />
       </div>
@@ -43,17 +44,18 @@ const LoginComponent: FC<{ toggle: () => void }> = ({ toggle }) => {
           className="input"
           type="password"
           name="password"
+          data-test="loginPassword"
           value={form.password}
           onChange={inputLoginHandler}
         />
       </div>
       <div className="flex mt-4 justify-between">
-        <div className="button bg-blue-500 w-1/3" onClick={loginSubmit}>
+        <button className="button bg-blue-500 w-1/3 text-white" onClick={loginSubmit}>
           Login
-        </div>
-        <div className="button bg-darkGreen w-1/3" onClick={() => toggle()}>
+        </button>
+        <button className="button bg-darkGreen w-1/3 text-white" onClick={() => toggle()}>
           Register
-        </div>
+        </button>
       </div>
     </div>
   );
